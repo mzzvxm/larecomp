@@ -159,6 +159,41 @@ EXPORT DWORD _XamVoiceSubmitPacket(DWORD hVoiceDecodeHandle, void* pBuffer, DWOR
     return 0; // HRESULT success equivalent
 }
 
+// Adicione este include se não estiver implícito, para reconhecer 'Register'
+#include <rex/runtime/guest/types.h> 
+
+// 1. Ponteiro Global para a memória do emulador
+uint8_t* g_emu_memory = nullptr;
+
+bool CheckNullAndSkip(rex::runtime::guest::Register& r31) {
+    if (g_emu_memory == nullptr) return false;
+
+    uint32_t address = r31.u32;
+    if (address == 0) return true;
+
+    uint32_t raw_val = *(uint32_t*)(g_emu_memory + address);
+    uint32_t func_ptr = _byteswap_ulong(raw_val);
+
+    if (func_ptr == 0 || func_ptr == 0xFFFFFFFFu) return true;
+
+    if (func_ptr < PPC_CODE_BASE || func_ptr >= (PPC_CODE_BASE + PPC_CODE_SIZE)) {
+        return true;
+    }
+
+    PPCFunc** entry = reinterpret_cast<PPCFunc**>(
+        g_emu_memory
+        + PPC_IMAGE_BASE
+        + PPC_IMAGE_SIZE
+        + (uint64_t(uint32_t(func_ptr) - PPC_CODE_BASE) * 2)
+    );
+
+    if (*entry == nullptr) {
+        return true;
+    }
+
+    return false;
+}
+
 class DebugOverlayDialog : public rex::ui::ImGuiDialog {
 public:
     DebugOverlayDialog(rex::ui::ImGuiDrawer* imgui_drawer)
@@ -194,7 +229,7 @@ public:
         if (auto arg = GetArgument("game_directory")) {
             game_dir = *arg;
         } else {
-            game_dir = exe_dir / "assets";
+            game_dir = exe_dir / "C:\\Users\\mzzvxm\\Documents\\MCLARecomp\\RexGlue-Test\\larecomp\\assets";
         }
 
         // Forcing logs so you don't have to type in the terminal every time 
@@ -216,6 +251,8 @@ public:
         // Create and initialize runtime
         runtime_ = std::make_unique<rex::Runtime>(game_dir);
         runtime_->set_app_context(&app_context());
+
+        g_emu_memory = runtime_->virtual_membase();
 
         auto status = runtime_->Setup(
             static_cast<uint32_t>(PPC_CODE_BASE),

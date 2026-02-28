@@ -24941,7 +24941,7 @@ out_directory_path = "generated"
 0x827B1068 = { name = "rex_sub_827B1068" }
 0x827B1088 = { name = "rex_sub_827B1088" }
 0x827B4B58 = { name = "rex_sub_827B4B58" }
-0x827B4B78 = { name = "rex_sub_827B4B78" }
+0x827B4B78 = { name = "rex_sub_827B4B78" } # game opens
 
 0x827A76D0 = { name = "Func_827A76D0" }
 0x827A76F0 = { name = "Func_827A76F0" }
@@ -24958,6 +24958,11 @@ out_directory_path = "generated"
 0x827A7850 = { name = "Func_827A7850" }
 0x827A7870 = { name = "Func_827A7870" }
 0x827A7890 = { name = "Func_827A7890" }
+
+0x8249CBF0 = { name = "Func_8249CBF0" }
+0x8249CC00 = { name = "Func_8249CC00" }
+0x823F3C68 = { name = "Func_823F3C68" }
+0x823F6EF8 = { name = "Func_823F6EF8" }
 
 [analysis]
 # Aumentar o threshold pode ajudar se houver muitos dados embutidos no código

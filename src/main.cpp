@@ -197,11 +197,14 @@ public:
             game_dir = exe_dir / "assets";
         }
 
-        std::string log_file_cvar = REXCVAR_GET(log_file);
-        std::string log_level_str = REXCVAR_GET(log_level);
+        // Forcing logs so you don't have to type in the terminal every time 
+        std::string log_file_cvar = "debug_mcla.txt"; 
+        std::string log_level_str = "trace";
+
         if (REXCVAR_GET(log_verbose) && log_level_str == "info") {
             log_level_str = "trace";
         }
+
         auto log_config = rex::BuildLogConfig(
             log_file_cvar.empty() ? nullptr : log_file_cvar.c_str(),
             log_level_str, {});

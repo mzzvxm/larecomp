@@ -229,7 +229,7 @@ public:
         if (auto arg = GetArgument("game_directory")) {
             game_dir = *arg;
         } else {
-            game_dir = exe_dir / "C:\\Users\\mzzvxm\\Documents\\MCLARecomp\\RexGlue-Test\\larecomp\\assets";
+            game_dir = exe_dir / "assets";
         }
 
         // Forcing logs so you don't have to type in the terminal every time 

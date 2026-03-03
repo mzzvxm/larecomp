@@ -23,20 +23,20 @@ else()
 endif()
 
 # Sources
-set(PROJECTLA_SOURCES
+set(LARECOMP_SOURCES
     src/main.cpp
 )
 
 # Include generated code if codegen has been run
 if(EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/generated/sources.cmake")
     include(generated/sources.cmake)
-    list(APPEND PROJECTLA_SOURCES ${GENERATED_SOURCES})
+    list(APPEND LARECOMP_SOURCES ${GENERATED_SOURCES})
 endif()
 
 if(WIN32)
-    add_executable(larecomp WIN32 ${PROJECTLA_SOURCES})
+    add_executable(larecomp WIN32 ${LARECOMP_SOURCES})
 else()
-    add_executable(larecomp ${PROJECTLA_SOURCES})
+    add_executable(larecomp ${LARECOMP_SOURCES})
 endif()
 
 target_include_directories(larecomp PRIVATE

@@ -49,7 +49,7 @@ class LARecompApp : public rex::ReXApp {
 
   static std::unique_ptr<rex::ui::WindowedApp> Create(
       rex::ui::WindowedAppContext& ctx) {
-    return std::unique_ptr<ProjectLaApp>(new ProjectLaApp(ctx, "larecomp",
+    return std::unique_ptr<LARecompApp>(new LARecompApp(ctx, "larecomp",
         {PPC_CODE_BASE, PPC_CODE_SIZE, PPC_IMAGE_BASE,
          PPC_IMAGE_SIZE, PPCFuncMappings}));
   }

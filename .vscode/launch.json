@@ -5,7 +5,7 @@
             "name": "Debug larecomp",
             "type": "cppvsdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/out/build/win-amd64-debug/larecomp.exe",
+            "program": "${workspaceFolder}/out/build/win-amd64-release/larecomp.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

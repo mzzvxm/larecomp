@@ -3,7 +3,7 @@
 # See README.md for full configuration reference.
 
 project_name = "larecomp"
-file_path = "assets/default.xex"
+file_path = "C:\\Users\\mzzvxm\\Documents\\MCLARecomp\\RexGlue-Test\\larecomp\\out\\build\\win-amd64-release\\assets\\default.xex"
 out_directory_path = "generated"
 
 [functions]
@@ -7893,11 +7893,11 @@ out_directory_path = "generated"
 0x823389C8 = { name = "rex_sub_823389C8", size = 0x3C }
 0x82338A08 = { name = "rex_sub_82338A08", size = 0x3C }
 0x82338A48 = { name = "rex_sub_82338A48", size = 0xB4 }
-0x82338B10 = { name = "rex_sub_82338B10", size = 0x10 }
-0x82338B20 = { name = "rex_sub_82338B20", size = 0x10 }
-0x82338B30 = { name = "rex_sub_82338B30", size = 0x10 }
-0x82338B40 = { name = "rex_sub_82338B40", size = 0x10 }
-0x82338B50 = { name = "rex_sub_82338B50", size = 0x10 }
+#0x82338B10 = { name = "rex_sub_82338B10", size = 0x10 }
+#0x82338B20 = { name = "rex_sub_82338B20", size = 0x10 }
+#0x82338B30 = { name = "rex_sub_82338B30", size = 0x10 }
+#0x82338B40 = { name = "rex_sub_82338B40", size = 0x10 }
+#0x82338B50 = { name = "rex_sub_82338B50", size = 0x10 }
 0x82338B68 = { name = "rex_sub_82338B68", size = 0x294 }
 0x82338E00 = { name = "rex_sub_82338E00", size = 0xF4 }
 0x82338EF8 = { name = "rex_sub_82338EF8", size = 0xAC }
@@ -24965,3 +24965,6 @@ out_directory_path = "generated"
 
 0x8260B5B0 = { name = "Func_8260B5B0" }
 
+0x82727BD4 = { name = "Func_82727BD4" }
+
+0x82554080 = { name = "ScriptNative_82554080" }

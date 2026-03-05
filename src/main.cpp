@@ -8,6 +8,61 @@
 #include "generated/larecomp_init.h"
 
 #include <rex/rex_app.h>
+#include <rex/logging.h>
+#include <rex/ui/window.h>
+#include <cstdio>
+#include <chrono>
+#include <windows.h>
+#include <dbghelp.h>
+#pragma comment(lib, "dbghelp.lib")
+
+// =============================================================
+// XAM USER / SIGNIN
+// =============================================================
+
+uint32_t _XamUserGetSigninState(uint32_t dwUserIndex) {
+    if (dwUserIndex == 0) return 1; // eXUserSigninState_SignedInLocally
+    return 0;
+}
+
+uint32_t _XamUserGetName(uint32_t dwUserIndex, char* pNameBuffer, uint32_t dwNameBufferSize) {
+    if (dwUserIndex != 0) return 0x80000001;
+    if (pNameBuffer && dwNameBufferSize > 0) {
+        sprintf_s(pNameBuffer, dwNameBufferSize, "ReXPlayer");
+    }
+    return 0;
+}
+
+uint32_t _XamUserGetXUID(uint32_t dwUserIndex, uint64_t* pXuid) {
+    if (dwUserIndex != 0) return 0x80000001;
+    if (pXuid) {
+        *pXuid = 0x0009000012345678ull;
+    }
+    return 0;
+}
+
+// =============================================================
+// STORAGE / CONTEÚDO
+// =============================================================
+
+uint32_t _XamContentGetDeviceState(uint32_t dwDeviceId, void* pDeviceData) {
+    REXLOG_DEBUG("Stub: _XamContentGetDeviceState(ID={}) chamado. Retornando NOT_FOUND.", dwDeviceId);
+    return 0x8100F209;
+}
+
+uint32_t _XamContentCreateEnumerator(uint32_t dwUserIndex, uint32_t dwDeviceId, uint32_t dwContentType, uint32_t dwContentFlags, uint32_t dwMaxProperties, uint32_t pProperties, uint32_t pcbBuffer, uint32_t phEnum) {
+    REXLOG_WARN("Stub: _XamContentCreateEnumerator chamado.");
+    if (phEnum) *reinterpret_cast<uint32_t*>(phEnum) = 0xFFFFFFFF;
+    return 0x8100F209;
+}
+
+uint32_t _XamUserGetDeviceDescription(uint32_t dwIndex, uint32_t pBuffer, uint32_t pcbBuffer) {
+    return 0x8100F209;
+}
+
+uint32_t _XamUserSetContext(uint32_t dwUserIndex, uint32_t dwContextId, uint32_t dwValue, uint32_t pOverlapped) {
+    return 0;
+}
 
 extern "C" {
     // XAM Stubs
@@ -45,7 +100,89 @@ extern "C" {
 
 class LARecompApp : public rex::ReXApp {
  public:
-  using rex::ReXApp::ReXApp;
+  LARecompApp(rex::ui::WindowedAppContext& ctx, std::string_view name, rex::PPCImageInfo ppc_info)
+      : rex::ReXApp(ctx, name, ppc_info) {
+
+      rex::InitLogging("debug_mcla.txt", spdlog::level::debug);
+      REXLOG_INFO("Inicializando LA Recompiled...");
+
+      // Flush em toda mensagem warn+ e periodicamente
+      spdlog::flush_on(spdlog::level::warn);
+      spdlog::flush_every(std::chrono::seconds(1));
+
+      // Captura crashes com stack trace antes que o processo morra
+      SetUnhandledExceptionFilter([](EXCEPTION_POINTERS* ep) -> LONG {
+    REXLOG_ERROR("CRASH! Code: 0x{:08X} at 0x{:016X}",
+        ep->ExceptionRecord->ExceptionCode,
+        (uintptr_t)ep->ExceptionRecord->ExceptionAddress);
+
+    HANDLE hProcess = GetCurrentProcess();
+    HANDLE hThread  = GetCurrentThread();
+    SymInitialize(hProcess, nullptr, TRUE);
+
+    // Usa o contexto REAL do crash, não o contexto do handler
+    CONTEXT ctx = *ep->ContextRecord;
+
+    STACKFRAME64 frame{};
+    frame.AddrPC.Offset    = ctx.Rip;
+    frame.AddrPC.Mode      = AddrModeFlat;
+    frame.AddrFrame.Offset = ctx.Rbp;
+    frame.AddrFrame.Mode   = AddrModeFlat;
+    frame.AddrStack.Offset = ctx.Rsp;
+    frame.AddrStack.Mode   = AddrModeFlat;
+
+    HMODULE hExe = GetModuleHandleA(nullptr);
+    uintptr_t base = (uintptr_t)hExe;
+
+    REXLOG_ERROR("Stack trace real (contexto do crash):");
+    char sym_buf[sizeof(SYMBOL_INFO) + 256];
+    auto* sym = reinterpret_cast<SYMBOL_INFO*>(sym_buf);
+    sym->SizeOfStruct = sizeof(SYMBOL_INFO);
+    sym->MaxNameLen   = 255;
+
+    for (int i = 0; i < 24; i++) {
+        if (!StackWalk64(IMAGE_FILE_MACHINE_AMD64, hProcess, hThread,
+                         &frame, &ctx, nullptr,
+                         SymFunctionTableAccess64, SymGetModuleBase64, nullptr))
+            break;
+        if (frame.AddrPC.Offset == 0) break;
+
+        uintptr_t addr   = (uintptr_t)frame.AddrPC.Offset;
+        uintptr_t offset = addr - base;
+
+        if (SymFromAddr(hProcess, addr, nullptr, sym)) {
+            REXLOG_ERROR("  #{}: {} (0x{:016X}) [base+0x{:X}]", i, sym->Name, addr, offset);
+        } else {
+            REXLOG_ERROR("  #{}: 0x{:016X} [base+0x{:X}]", i, addr, offset);
+        }
+    }
+
+    // Registradores no momento do crash
+    REXLOG_ERROR("Registradores: RIP={:016X} RAX={:016X} RCX={:016X} RDX={:016X} RSP={:016X}",
+    ep->ContextRecord->Rip, ep->ContextRecord->Rax,
+    ep->ContextRecord->Rcx, ep->ContextRecord->Rdx,
+    ep->ContextRecord->Rsp);
+
+// Dumpa os primeiros 8 return addresses da stack manualmente
+REXLOG_ERROR("Stack manual (via RSP):");
+uintptr_t* rsp = reinterpret_cast<uintptr_t*>(ep->ContextRecord->Rsp);
+for (int i = 0; i < 8; i++) {
+    __try {
+        uintptr_t ret = rsp[i];
+        uintptr_t off = ret - base;
+        REXLOG_ERROR("  RSP+{:02X}: 0x{:016X} [base+0x{:X}]", i*8, ret, off);
+    } __except(EXCEPTION_EXECUTE_HANDLER) { break; }
+}
+
+    spdlog::default_logger()->flush();
+    spdlog::shutdown();
+    return EXCEPTION_CONTINUE_SEARCH;
+});
+
+      if (auto* w = window()) {
+          w->SetTitle("LA Recompiled");
+      }
+  }
 
   static std::unique_ptr<rex::ui::WindowedApp> Create(
       rex::ui::WindowedAppContext& ctx) {
@@ -53,7 +190,6 @@ class LARecompApp : public rex::ReXApp {
         {PPC_CODE_BASE, PPC_CODE_SIZE, PPC_IMAGE_BASE,
          PPC_IMAGE_SIZE, PPCFuncMappings}));
   }
-
 };
 
 REX_DEFINE_APP(larecomp, LARecompApp::Create)

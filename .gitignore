@@ -4,3 +4,5 @@ out/
 named_functions_ida.toml
 debug_mcla.txt
 x360ce.exe
+src/main.cpp.bak
+CMakeLists.txt.bak

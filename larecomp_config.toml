@@ -3,7 +3,7 @@
 # See README.md for full configuration reference.
 
 project_name = "larecomp"
-file_path = "C:\\Users\\mzzvxm\\Documents\\MCLARecomp\\RexGlue-Test\\larecomp\\out\\build\\win-amd64-release\\assets\\default.xex"
+file_path = "assets/default.xex"
 out_directory_path = "generated"
 
 [functions]
@@ -3077,8 +3077,8 @@ out_directory_path = "generated"
 0x821EA968 = { name = "rex_sub_821EA968", size = 0x364 }
 0x821EACD0 = { name = "rex_sub_821EACD0", size = 0x68 }
 0x821EAD38 = { name = "rex_sub_821EAD38", size = 0x60 }
-0x821EAD98 = { name = "rex_sub_821EAD98", size = 0x2E4 }
-0x821EB080 = { name = "rex_sub_821EB080", size = 0x3C4 }
+0x821EAD98 = { name = "rex_sub_821EAD98", size = 0x2E4 } # Init Ambience Global
+0x821EB080 = { name = "rex_sub_821EB080", size = 0x3C4 } # Process Audio 3D/Distance
 0x821EB448 = { name = "rex_sub_821EB448", size = 0x2C0 }
 0x821EB708 = { name = "rex_sub_821EB708", size = 0x108 }
 0x821EB810 = { name = "rex_sub_821EB810", size = 0x11C }
@@ -3087,7 +3087,7 @@ out_directory_path = "generated"
 0x821EBC70 = { name = "rex_sub_821EBC70", size = 0x7C }
 0x821EBCF0 = { name = "rex_sub_821EBCF0", size = 0xB0 }
 0x821EBDA0 = { name = "rex_sub_821EBDA0", size = 0xAC }
-0x821EBE70 = { name = "rex_sub_821EBE70", size = 0x50 }
+0x821EBE70 = { name = "rex_sub_821EBE70", size = 0x50 } # Audio Entity Destructor
 0x821EBEC0 = { name = "rex_sub_821EBEC0", size = 0x78 }
 0x821EBF38 = { name = "rex_sub_821EBF38", size = 0xB0 }
 0x821EBFE8 = { name = "rex_sub_821EBFE8", size = 0x78 }
@@ -3113,9 +3113,9 @@ out_directory_path = "generated"
 0x821EE7F0 = { name = "rex_sub_821EE7F0", size = 0x64 }
 0x821EE868 = { name = "rex_sub_821EE868", size = 0x224 }
 0x821EEA90 = { name = "rex_sub_821EEA90", size = 0x8C }
-0x821EEB48 = { name = "rex_sub_821EEB48", size = 0x84 }
+0x821EEB48 = { name = "rex_sub_821EEB48", size = 0x84 } # Loading Music Loader
 0x821EEBE8 = { name = "rex_sub_821EEBE8", size = 0x80 }
-0x821EEC68 = { name = "rex_sub_821EEC68", size = 0x94 }
+0x821EEC68 = { name = "rex_sub_821EEC68", size = 0x94 } # Music Genre Manager
 0x821EED18 = { name = "rex_sub_821EED18", size = 0x78 }
 0x821EED90 = { name = "rex_sub_821EED90", size = 0x178 }
 0x821EEF08 = { name = "rex_sub_821EEF08", size = 0x6C }
@@ -3136,7 +3136,7 @@ out_directory_path = "generated"
 0x821EF7A8 = { name = "rex_sub_821EF7A8", size = 0xCC }
 0x821EF878 = { name = "rex_sub_821EF878", size = 0xD8 }
 0x821EF950 = { name = "rex_sub_821EF950", size = 0x248 }
-0x821EFB98 = { name = "rex_sub_821EFB98", size = 0x400 }
+0x821EFB98 = { name = "rex_sub_821EFB98", size = 0x400 } # i think this is music manager init
 0x821EFFB8 = { name = "rex_sub_821EFFB8", size = 0x8 }
 0x821EFFC0 = { name = "rex_sub_821EFFC0", size = 0x148 }
 0x821F0108 = { name = "rex_sub_821F0108", size = 0xFC }
@@ -7817,7 +7817,7 @@ out_directory_path = "generated"
 0x8232E730 = { name = "rex_sub_8232E730", size = 0x10C }
 0x8232E840 = { name = "rex_sub_8232E840", size = 0x9C }
 0x8232E8E0 = { name = "rex_sub_8232E8E0", size = 0x194 }
-0x8232EA78 = { name = "rex_sub_8232EA78", size = 0x18FC }
+0x8232EA78 = { name = "mcVehicleControlTick", size = 0x18FC } # talvez nao seja
 0x82330378 = { name = "rex_sub_82330378", size = 0x808 }
 0x82330B80 = { name = "rex_sub_82330B80", size = 0x94 }
 0x82330C18 = { name = "rex_sub_82330C18", size = 0x34 }
@@ -7888,7 +7888,7 @@ out_directory_path = "generated"
 0x82338200 = { name = "rex_sub_82338200", size = 0x184 }
 0x82338388 = { name = "rex_sub_82338388", size = 0x3C }
 0x823383C8 = { name = "rex_sub_823383C8", size = 0x3CC }
-0x82338798 = { name = "rex_sub_82338798", size = 0x30 }
+# 0x82338798 = { name = "rex_sub_82338798", size = 0x30 } # idk if this size is correct, i think is 0x1E4, but not sure
 0x82338988 = { name = "rex_sub_82338988", size = 0x3C }
 0x823389C8 = { name = "rex_sub_823389C8", size = 0x3C }
 0x82338A08 = { name = "rex_sub_82338A08", size = 0x3C }
@@ -15875,7 +15875,7 @@ out_directory_path = "generated"
 0x82558390 = { name = "rex_sub_82558390", size = 0x50 }
 0x825583E0 = { name = "rex_sub_825583E0", size = 0x5C }
 0x82558448 = { name = "rex_sub_82558448", size = 0x6C }
-0x825584C8 = { name = "rex_sub_825584C8", size = 0x24 }
+0x825584C8 = { name = "mcWheel_FilterValue", size = 0x24 }
 0x825584F0 = { name = "rex_sub_825584F0", size = 0x14 }
 0x82558508 = { name = "rex_sub_82558508", size = 0x14 }
 0x82558520 = { name = "rex_sub_82558520", size = 0x14 }
@@ -16047,7 +16047,7 @@ out_directory_path = "generated"
 0x82564488 = { name = "rex_sub_82564488", size = 0xF4 }
 0x82564580 = { name = "rex_sub_82564580", size = 0x160 }
 0x825646E0 = { name = "rex_sub_825646E0", size = 0x78 }
-0x82564758 = { name = "rex_sub_82564758", size = 0x16C }
+0x82564758 = { name = "mcWheel_RecomputeParams", size = 0x16C } # talvez não seja
 0x825648C8 = { name = "rex_sub_825648C8", size = 0xB0 }
 0x82564978 = { name = "rex_sub_82564978", size = 0x7C }
 0x825649F8 = { name = "rex_sub_825649F8", size = 0x13C }
@@ -16062,13 +16062,13 @@ out_directory_path = "generated"
 0x82564FA0 = { name = "rex_sub_82564FA0", size = 0x26C }
 0x82565210 = { name = "rex_sub_82565210", size = 0x7C }
 0x82565290 = { name = "rex_sub_82565290", size = 0x24 }
-0x825652B8 = { name = "rex_sub_825652B8", size = 0x68 }
-0x82565320 = { name = "rex_sub_82565320", size = 0x24 }
+0x825652B8 = { name = "mcWheel_ApplyInputs", size = 0x68 } # talvez não seja
+0x82565320 = { name = "mcWheel_SetScalar480", size = 0x24 } # talvez não seja
 0x82565348 = { name = "rex_sub_82565348", size = 0x138 }
 0x82565480 = { name = "rex_sub_82565480", size = 0x94 }
 0x82565518 = { name = "rex_sub_82565518", size = 0x1CC }
 0x825656E8 = { name = "rex_sub_825656E8", size = 0x70 }
-0x82565758 = { name = "rex_sub_82565758", size = 0x50 }
+0x82565758 = { name = "mcWheel_ResetParamsFromMass", size = 0x50 } # talvez não seja
 0x825657A8 = { name = "rex_sub_825657A8", size = 0x1C }
 0x825657C8 = { name = "rex_sub_825657C8", size = 0x90 }
 0x82565858 = { name = "rex_sub_82565858", size = 0x338 }
@@ -17351,7 +17351,7 @@ out_directory_path = "generated"
 0x825CC758 = { name = "rex_sub_825CC758", size = 0x48 }
 0x825CC7A0 = { name = "rex_sub_825CC7A0", size = 0x100 }
 0x825CC8A0 = { name = "rex_sub_825CC8A0", size = 0x8C }
-0x825CC930 = { name = "rex_sub_825CC930", size = 0x4CC }
+0x825CC930 = { name = "rex_sub_825CC930", size = 0x4CC } # player physics
 0x825CCE00 = { name = "rex_sub_825CCE00", size = 0x1B6C }
 0x825CE970 = { name = "rex_sub_825CE970", size = 0xF4 }
 0x825CEA68 = { name = "rex_sub_825CEA68", size = 0x10 }
@@ -24945,16 +24945,16 @@ out_directory_path = "generated"
 0x827A7710 = { name = "Func_827A7710" }
 0x827A7730 = { name = "Func_827A7730" }
 0x827A7750 = { name = "Func_827A7750" }
-0x827A7770 = { name = "Func_827A7770" }
-0x827A7790 = { name = "Func_827A7790" }
-0x827A77B0 = { name = "Func_827A77B0" }
-0x827A77D0 = { name = "Func_827A77D0" }
-0x827A77F0 = { name = "Func_827A77F0" }
-0x827A7810 = { name = "Func_827A7810" }
-0x827A7830 = { name = "Func_827A7830" }
-0x827A7850 = { name = "Func_827A7850" }
-0x827A7870 = { name = "Func_827A7870" }
-0x827A7890 = { name = "Func_827A7890" }
+0x827A7770 = { name = "Func_outputLogFile" }
+0x827A7790 = { name = "Func_Shadows" }
+# 0x827A77B0 = { name = "Func_LogoOpen" }
+0x827A77D0 = { name = "Func_extrad3dmem" } # i think this is "Extra Direct 3D Memory"
+0x827A77F0 = { name = "Func_extraheapmem" } # i think this is "Extra Heap Memory"
+0x827A7810 = { name = "Func_capturestart" }
+0x827A7830 = { name = "Func_capturestop" }
+0x827A7850 = { name = "Func_gfxcapturestart" }
+0x827A7870 = { name = "Func_gfxcapturestop" }
+0x827A7890 = { name = "Func_logstart" } # idk what this does, but it seems to be related to logging
 
 0x8249CBF0 = { name = "Func_8249CBF0" }
 0x8249CC00 = { name = "Func_8249CC00" }

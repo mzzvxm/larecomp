@@ -17,21 +17,23 @@
                 "rhs": "Windows"
             }
         },
+
         {
-            "name": "linux-base",
-            "hidden": true,
-            "generator": "Ninja",
-            "binaryDir": "${sourceDir}/out/build/${presetName}",
-            "cacheVariables": {
-                "CMAKE_C_COMPILER": "clang-20",
-                "CMAKE_CXX_COMPILER": "clang++-20"
-            },
-            "condition": {
-                "type": "equals",
-                "lhs": "${hostSystemName}",
-                "rhs": "Linux"
-            }
+        "name": "linux-base",
+        "hidden": true,
+        "generator": "Ninja",
+        "binaryDir": "${sourceDir}/out/build/${presetName}",
+        "cacheVariables": {
+            "CMAKE_C_COMPILER": "clang-20",
+            "CMAKE_CXX_COMPILER": "clang++-20"
         },
+        "condition": {
+            "type": "equals",
+            "lhs": "${hostSystemName}",
+            "rhs": "Linux"
+        }
+        },
+
         {
             "name": "win-amd64-debug",
             "displayName": "Windows AMD64 Debug",
@@ -67,7 +69,40 @@
             "displayName": "Linux AMD64 RelWithDebInfo",
             "inherits": "linux-base",
             "cacheVariables": { "CMAKE_BUILD_TYPE": "RelWithDebInfo" }
-        }
+        },
+        {
+    "name": "windows-clangcl-base",
+    "hidden": true,
+    "generator": "Ninja",
+    "binaryDir": "${sourceDir}/out/build/${presetName}",
+    "cacheVariables": {
+        "CMAKE_C_COMPILER": "clang-cl",
+        "CMAKE_CXX_COMPILER": "clang-cl"
+    },
+    "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+    }
+    },
+    {
+    "name": "win-amd64-clangcl-debug",
+    "displayName": "Windows AMD64 Debug (clang-cl)",
+    "inherits": "windows-clangcl-base",
+    "cacheVariables": { "CMAKE_BUILD_TYPE": "Debug" }
+    },
+    {
+    "name": "win-amd64-clangcl-release",
+    "displayName": "Windows AMD64 Release (clang-cl)",
+    "inherits": "windows-clangcl-base",
+    "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" }
+    },
+    {
+    "name": "win-amd64-clangcl-relwithdebinfo",
+    "displayName": "Windows AMD64 RelWithDebInfo (clang-cl)",
+    "inherits": "windows-clangcl-base",
+    "cacheVariables": { "CMAKE_BUILD_TYPE": "RelWithDebInfo" }
+    }
     ],
     "buildPresets": [
         { "name": "win-amd64-debug", "configurePreset": "win-amd64-debug" },
@@ -75,6 +110,9 @@
         { "name": "win-amd64-relwithdebinfo", "configurePreset": "win-amd64-relwithdebinfo" },
         { "name": "linux-amd64-debug", "configurePreset": "linux-amd64-debug" },
         { "name": "linux-amd64-release", "configurePreset": "linux-amd64-release" },
-        { "name": "linux-amd64-relwithdebinfo", "configurePreset": "linux-amd64-relwithdebinfo" }
+        { "name": "linux-amd64-relwithdebinfo", "configurePreset": "linux-amd64-relwithdebinfo" },
+        { "name": "win-amd64-clangcl-debug", "configurePreset": "win-amd64-clangcl-debug" },
+        { "name": "win-amd64-clangcl-release", "configurePreset": "win-amd64-clangcl-release" },
+        { "name": "win-amd64-clangcl-relwithdebinfo", "configurePreset": "win-amd64-clangcl-relwithdebinfo" }
     ]
 }

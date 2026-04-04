@@ -77,8 +77,22 @@ class LarecompApp : public rex::ReXApp {
               }
           }
 
-          REXLOG_ERROR("Registradores: RIP={:016X} RAX={:016X} RSP={:016X}",
-              ep->ContextRecord->Rip, ep->ContextRecord->Rax, ep->ContextRecord->Rsp);
+          // Registradores no momento do crash (restaurando RCX e RDX)
+          REXLOG_ERROR("Registradores: RIP={:016X} RAX={:016X} RCX={:016X} RDX={:016X} RSP={:016X}",
+              ep->ContextRecord->Rip, ep->ContextRecord->Rax,
+              ep->ContextRecord->Rcx, ep->ContextRecord->Rdx,
+              ep->ContextRecord->Rsp);
+
+          // Dumpa os primeiros 8 return addresses da stack manualmente via RSP
+          REXLOG_ERROR("Stack manual (via RSP):");
+          uintptr_t* rsp = reinterpret_cast<uintptr_t*>(ep->ContextRecord->Rsp);
+          for (int i = 0; i < 8; i++) {
+              __try {
+                  uintptr_t ret = rsp[i];
+                  uintptr_t off = ret - base;
+                  REXLOG_ERROR("  RSP+{:02X}: 0x{:016X} [base+0x{:X}]", i*8, ret, off);
+              } __except(EXCEPTION_EXECUTE_HANDLER) { break; }
+          }
 
           spdlog::default_logger()->flush();
           spdlog::shutdown();

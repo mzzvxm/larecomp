@@ -3,21 +3,21 @@
 # See README.md for full configuration reference.
 
 project_name = "larecomp"
-file_path = "assets/default.xex"
+file_path = "C:\\Users\\mzzvxm\\Documents\\MCLARecomp\\RexGlue-Test\\larecomp\\out\\build\\win-amd64-clangcl-release\\assets\\default.xex"
 out_directory_path = "generated"
 
 [functions]
 0x823F32E8 = { name = "rex_sub_823F32E8" }
 # --- Funções adicionadas a partir dos UnresolvedCall Errors ---
-0x825F4C28 = { name = "rex_sub_825F4C28" }
+# 0x825F4C28 = { name = "rex_sub_825F4C28" }
 0x82388030 = { name = "rex_sub_82388030" }
 # --- Funções adicionadas a partir dos Unresolved Conditional Branches / Targets ---
 0x82134370 = { name = "rex_sub_82134370" }
-0x821D9C78 = { name = "rex_sub_821D9C78" }
+# 0x821D9C78 = { name = "rex_sub_821D9C78" }
 0x8227D580 = { name = "rex_sub_8227D580" }
 0x8227D734 = { name = "rex_sub_8227D734" }
 0x8227DB54 = { name = "rex_sub_8227DB54" }
-0x8238802C = { name = "rex_sub_8238802C" }
+# 0x8238802C = { name = "rex_sub_8238802C" }
 
 # (aqui tambem, se der merda eu tiro depois)
 0x827A7FD0 = { name = "rex_sub_827A7FD0" } # teste
@@ -17351,7 +17351,7 @@ out_directory_path = "generated"
 0x825CC758 = { name = "rex_sub_825CC758", size = 0x48 }
 0x825CC7A0 = { name = "rex_sub_825CC7A0", size = 0x100 }
 0x825CC8A0 = { name = "rex_sub_825CC8A0", size = 0x8C }
-0x825CC930 = { name = "rex_sub_825CC930", size = 0x4CC } # player physics
+0x825CC930 = { name = "phCollision_ComputePairwise", size = 0x4CC } # player physics
 0x825CCE00 = { name = "rex_sub_825CCE00", size = 0x1B6C }
 0x825CE970 = { name = "rex_sub_825CE970", size = 0xF4 }
 0x825CEA68 = { name = "rex_sub_825CEA68", size = 0x10 }
@@ -19010,8 +19010,8 @@ out_directory_path = "generated"
 0x8264CFB8 = { name = "rex_sub_8264CFB8", size = 0xB4 }
 0x8264D070 = { name = "rex_sub_8264D070", size = 0x64 }
 0x8264D0D8 = { name = "rex_sub_8264D0D8", size = 0x1E8 }
-0x8264D2C0 = { name = "rex_sub_8264D2C0", size = 0xB4 }
-0x8264D378 = { name = "rex_sub_8264D378", size = 0x17C }
+0x8264D2C0 = { name = "mcControllerOptionsForm", size = 0xB4 }
+0x8264D378 = { name = "mcCameraOptionsForm", size = 0x17C }
 0x8264D4F8 = { name = "rex_sub_8264D4F8", size = 0x154 }
 0x8264D650 = { name = "rex_sub_8264D650", size = 0x74 }
 0x8264D6C8 = { name = "rex_sub_8264D6C8", size = 0x8 }
@@ -19020,16 +19020,16 @@ out_directory_path = "generated"
 0x8264D770 = { name = "rex_sub_8264D770", size = 0xC8 }
 0x8264D840 = { name = "rex_sub_8264D840", size = 0x68 }
 0x8264D8A8 = { name = "rex_sub_8264D8A8", size = 0x5C }
-0x8264D908 = { name = "rex_sub_8264D908", size = 0x26C }
+0x8264D908 = { name = "mcGameOptionsForm", size = 0x26C }
 0x8264DB78 = { name = "rex_sub_8264DB78", size = 0x50 }
-0x8264DBC8 = { name = "rex_sub_8264DBC8", size = 0x330 }
+0x8264DBC8 = { name = "mcAudioOptionsForm", size = 0x330 }
 0x8264DEF8 = { name = "rex_sub_8264DEF8", size = 0x50 }
 0x8264DF48 = { name = "rex_sub_8264DF48", size = 0x1B0 }
 0x8264E0F8 = { name = "rex_sub_8264E0F8", size = 0x50 }
 0x8264E148 = { name = "rex_sub_8264E148", size = 0x64 }
 0x8264E1B0 = { name = "rex_sub_8264E1B0", size = 0x50 }
 0x8264E200 = { name = "rex_sub_8264E200", size = 0x50 }
-0x8264E250 = { name = "rex_sub_8264E250", size = 0x214 }
+0x8264E250 = { name = "mcCheatForm", size = 0x214 }
 0x8264E468 = { name = "rex_sub_8264E468", size = 0x50 }
 0x8264E4B8 = { name = "rex_sub_8264E4B8", size = 0x60 }
 0x8264E528 = { name = "rex_sub_8264E528", size = 0x60 }
@@ -24973,3 +24973,67 @@ out_directory_path = "generated"
 0x82264770 = { name = "RaceGrid_GetPosition", size = 16 }
 0x82262320 = { name = "ReplayMgr_GetFinishedRace", size = 28 }
 0x82262340 = { name = "ReplayMgr_GetFinishedWatchingReplay" }
+
+0x823E6418 = { name = "rex_sub_823E6418" }
+0x82135118 = { name = "rex_sub_82135118" }
+0x8213540C = { name = "rex_sub_8213540C" }
+0x82135CC8 = { name = "rex_sub_82135CC8" }
+0x823E29E8 = { name = "rex_sub_823E29E8" }
+0x823EA000 = { name = "rex_sub_823EA000" }
+0x823DB078 = { name = "rex_sub_823DB078" }
+0x823E9DAC = { name = "rex_sub_823E9DAC" }
+0x823E91A0 = { name = "rex_sub_823E91A0" }
+0x823E68B0 = { name = "rex_sub_823E68B0" }
+0x823E6C94 = { name = "rex_sub_823E6C94" }
+0x823E9328 = { name = "rex_sub_823E9328" }
+0x8274B3D0 = { name = "rex_sub_8274B3D0" }
+
+# ==========================================
+# Game Patches (Xenia Port)
+# ==========================================
+
+# Skip Intro
+[[midasm_hook]]
+address = 0x821F7F64
+name = "SkipIntro"
+jump_address_on_true = 0x821F7FAC
+
+# 60 FPS - Game Speed Fix (Jump)
+[[midasm_hook]]
+address = 0x821BDB08
+name = "Patch_60FPS_Jump"
+jump_address_on_true = 0x821BDC34
+
+# 60 FPS - Game Speed Fix (Byte Patch)
+[[midasm_hook]]
+address = 0x82419AA0
+name = "Patch_60FPS_Byte"
+registers = ["r11"]
+jump_address_on_true = 0x82419AA4
+
+# Disable Motion Blur (Instruct 1: li r3, 0)
+[[midasm_hook]]
+address = 0x8260D0B8
+name = "Patch_DisableMotionBlur"
+registers = ["r3"]
+jump_address_on_true = 0x8260D0BC
+
+# Disable Motion Blur (Instruct 2: li r3, 0)
+[[midasm_hook]]
+address = 0x8260D0D4
+name = "Patch_DisableMotionBlur"
+registers = ["r3"]
+jump_address_on_true = 0x8260D0D8
+
+# Disable MSAA (li r11, 1)
+[[midasm_hook]]
+address = 0x822E4B80
+name = "Patch_DisableMSAA"
+registers = ["r11"]
+jump_address_on_true = 0x822E4B84
+
+# Break Pairwise Collision (blr)
+[[midasm_hook]]
+address = 0x825CC930
+name = "Patch_PhysicsCollision"
+return_on_true = true

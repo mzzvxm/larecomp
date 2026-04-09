@@ -8681,7 +8681,7 @@ out_directory_path = "generated"
 0x82381A50 = { name = "rex_sub_82381A50", size = 0x218 }
 0x82381C68 = { name = "rex_sub_82381C68", size = 0x7C }
 0x82381CE8 = { name = "rex_sub_82381CE8", size = 0x78 }
-0x82381D60 = { name = "rex_sub_82381D60", size = 0x170 }
+0x82381D60 = { name = "aCarWheel_Roof_Undercarriage_Side", size = 0x170 } # physics cause i think?
 0x82381ED0 = { name = "rex_sub_82381ED0", size = 0x80 }
 0x82381F50 = { name = "rex_sub_82381F50", size = 0x5C }
 0x82381FB0 = { name = "rex_sub_82381FB0", size = 0x11C4 }
@@ -24968,3 +24968,8 @@ out_directory_path = "generated"
 0x82727BD4 = { name = "Func_82727BD4" }
 
 0x82554080 = { name = "ScriptNative_82554080" }
+
+0x82264760 = { name = "RaceGrid_SetPosition", size = 16 }
+0x82264770 = { name = "RaceGrid_GetPosition", size = 16 }
+0x82262320 = { name = "ReplayMgr_GetFinishedRace", size = 28 }
+0x82262340 = { name = "ReplayMgr_GetFinishedWatchingReplay" }

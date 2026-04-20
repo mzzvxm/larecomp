@@ -27,7 +27,7 @@ extern "C" double roundeven(double x) {
 // The '.lifecycle(kRequiresRestart)' forces the user to restart the game if they change the value.
 
 
-REXCVAR_DEFINE_BOOL(skip_intro, true, "Patches", "Skip the intro videos to prevent graphical issues.")
+REXCVAR_DEFINE_BOOL(skip_intro, false, "Patches", "Skip the intro videos to prevent graphical issues.")
     .lifecycle(rex::cvar::Lifecycle::kRequiresRestart);
 
 REXCVAR_DEFINE_BOOL(fps_60, false, "Patches", "Increases vsync target to 60 FPS and enables deltatime.")
@@ -47,6 +47,12 @@ REXCVAR_DEFINE_BOOL(dbg_print, false, "Patches", "Enable DbgPrint console output
 
 REXCVAR_DEFINE_BOOL(break_pairwise_collision, false, "Patches", "Disables pairwise collision resolution.")
     .lifecycle(rex::cvar::Lifecycle::kRequiresRestart);
+
+REXCVAR_DEFINE_BOOL(disable_rubberbanding, false, "Patches", "Disables the AI RubberBand system, keeping the race fair.")
+    .lifecycle(rex::cvar::Lifecycle::kRequiresRestart);
+
+REXCVAR_DEFINE_BOOL(physics_noclip, true, "Physics", "Disable CCD/Pairwise Collision (Noclip)")
+    .lifecycle(rex::cvar::Lifecycle::kHotReload);
 
 
 // HOOK FUNCTIONS (Called in the middle of translated Assembly execution)
@@ -88,6 +94,11 @@ bool Patch_DisableMSAA(PPCRegister& r11) {
 // Returns 'true' to inject a 'blr' (return from collision function)
 bool Patch_PhysicsCollision() {
     return REXCVAR_GET(break_pairwise_collision);
+}
+
+// Returns 'true' to inject a 'blr' (return from function) in the RubberBand managers
+bool Patch_DisableRubberBanding() {
+    return REXCVAR_GET(disable_rubberbanding);
 }
 
 REX_DEFINE_APP(larecomp, LarecompApp::Create)

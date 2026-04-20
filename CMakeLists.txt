@@ -24,3 +24,9 @@ else()
 endif()
 
 rexglue_setup_target(larecomp)
+
+# rexglue 0.7.4
+ target_link_libraries(larecomp
+     PRIVATE
+     dxgi 
+ )

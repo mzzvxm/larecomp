@@ -3,7 +3,7 @@
 # See README.md for full configuration reference.
 
 project_name = "larecomp"
-file_path = "C:\\Users\\mzzvxm\\Documents\\MCLARecomp\\RexGlue-Test\\larecomp\\out\\build\\win-amd64-clangcl-release\\assets\\default.xex"
+file_path = "assets/default.xex"
 out_directory_path = "generated"
 
 [functions]
@@ -25036,4 +25036,22 @@ jump_address_on_true = 0x822E4B84
 [[midasm_hook]]
 address = 0x825CC930
 name = "Patch_PhysicsCollision"
+return_on_true = true
+
+# Disable RubberBanding - EnableRubberBanding (blr)
+[[midasm_hook]]
+address = 0x82742F00
+name = "Patch_DisableRubberBanding"
+return_on_true = true
+
+# Disable RubberBanding - SetupRace (blr)
+[[midasm_hook]]
+address = 0x827440A0
+name = "Patch_DisableRubberBanding"
+return_on_true = true
+
+# Disable RubberBanding - LoadTuning (blr)
+[[midasm_hook]]
+address = 0x827440D8
+name = "Patch_DisableRubberBanding"
 return_on_true = true

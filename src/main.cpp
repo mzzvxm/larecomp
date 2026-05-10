@@ -1,9 +1,7 @@
-
 // larecomp - ReXGlue Recompiled Project
 //
 // This file is yours to edit. 'rexglue migrate' will NOT overwrite it.
 
-#include "generated/larecomp_config.h"
 #include "generated/larecomp_init.h"
 
 #include "larecomp_app.h"
@@ -11,8 +9,8 @@
 #include <rex/cvar.h>
 
 #include <cmath>
+#include <cstdint>
 
-// Pointer to X360 base memory (defined in rexglue core)
 uint8_t* g_guest_mem = nullptr;
 
 extern "C" float roundevenf(float x) {

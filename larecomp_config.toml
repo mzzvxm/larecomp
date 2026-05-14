@@ -2,7 +2,78 @@ project_name = "larecomp"
 file_path = "assets/default.xex"
 out_directory_path = "generated"
 
+[rexcrt]
+RtlAllocateHeap = 0x82134860
+RtlFreeHeap = 0x82135150
+RtlSizeHeap = 0x82133B00
+RtlReAllocateHeap = 0x82135440
+
 [functions]
+0x821FA0D0 = { name = "UIManager_IsSaving" }
+0x821FA0E8 = { name = "UIManager_RecycleAllSubstates" }
+0x821FA0F8 = { name = "UIManager_SetCurrentMission" }
+0x821FA110 = { name = "UIManager_IsDisplayingMenu" }
+0x821FA168 = { name = "LoadingScreen_IsDoneLoading" }
+0x821FA1A0 = { name = "FlashNavigator_IsTransitioning" }
+0x821FBA60 = { name = "UIManager_UnloadHUD" }
+0x821FBAA8 = { name = "UIManager_LoadStates" }
+0x821FBAB8 = { name = "UIManager_UnloadMovie" }
+0x821FBAD0 = { name = "UIManager_FindMovie" }
+0x821FBB18 = { name = "UIManager_GetStringBuf" }
+0x821FBB40 = { name = "UIManager_AddRaceResult" }
+0x821FBB58 = { name = "UIManager_SendEvent" }
+0x821FBB68 = { name = "UIManager_SendEventTo" }
+0x821FBBD0 = { name = "UIManager_ReplaceDelayedEvent" }
+0x821FBBE0 = { name = "UIManager_FindState" }
+0x821FBC38 = { name = "UIManager_GetState" }
+0x821FBCB0 = { name = "UIManager_AddNewRecycledSubstate" }
+0x821FBCF0 = { name = "UIManager_SortSubstates" }
+0x821FBD18 = { name = "UIManager_SetStateDataString" }
+0x821FBD30 = { name = "UIManager_SetStateDataInt" }
+0x821FBD48 = { name = "UIManager_SetStateDataFloat" }
+0x821FBD60 = { name = "UIManager_FormatRaceClock" }
+0x821FBD70 = { name = "UIManager_QueueDisplay" }
+0x821FBD88 = { name = "UIManager_GetRebootReason" }
+0x821FCE18 = { name = "UIManager_LoadHUD" }
+0x821FCE28 = { name = "UIManager_StreamMovie" }
+0x821FCE70 = { name = "UIManager_TransitionFrom" }
+0x821FCE80 = { name = "UIManager_TransitionTo" }
+0x821FD6B0 = { name = "UIManager_LoadMovie" }
+0x821FD738 = { name = "UIManager_PrependMovie" }
+0x821FDAC8 = { name = "mcUIManager__RegisterScriptFunctions" }
+0x821FDED8 = { name = "mcUIManager__ctor" }
+0x8221CD78 = { name = "UISlider__ctor" }
+0x8221D510 = { name = "mcRmrSpinMode__ctor" }
+0x8221DC80 = { name = "mcSpectator__ctor" }
+0x8221ED18 = { name = "mcUINavMap__ctor" }
+0x82220EA0 = { name = "mcUIPause__ctor" }
+0x82220F70 = { name = "mcUIPauseMenu__ctor" }
+0x82220FE0 = { name = "FlashNavigator__HandleEvent" }
+0x82222080 = { name = "mcUIManager__CreateVhsmObject" }
+0x82228090 = { name = "UITransition__ctor" }
+0x8222B2A8 = { name = "UITransition_Translate_Axis__ctor" }
+0x8222C798 = { name = "UITransition_Translate_Spline__ctor" }
+0x8222CDB0 = { name = "UITransition_Rotate__ctor" }
+0x8222D718 = { name = "UITransition_Lerp__ctor" }
+0x8222E0F0 = { name = "UITransition_Value__ctor" }
+0x8222F238 = { name = "UITransition_GPSJump__ctor" }
+0x8222F4E8 = { name = "mcMissionLog__ctor" }
+0x82231900 = { name = "UITransition_LookAtTarget__ctor" }
+0x822326B8 = { name = "UITransition_Lean__ctor" }
+0x82554798 = { name = "SLF_RegisterFunction" }
+0x82637538 = { name = "UIComponent__ctor" }
+0x82638248 = { name = "UILabel__ctor" }
+0x82638BB8 = { name = "UIList__ctor" }
+0x82639258 = { name = "UIMessageBoxScene__ctor" }
+0x82639AE8 = { name = "UIMessageBox__ctor" }
+0x8263A5F8 = { name = "UIScene__ctor" }
+0x8263AC88 = { name = "UITabbedContainer__ctor" }
+0x8263AD60 = { name = "UIObject__ctor" }
+0x8264FF48 = { name = "mcHudState__ctor" }
+0x8268E430 = { name = "vhsmState__ctor" }
+0x82691650 = { name = "VirtualHSM__TransitionToState" }
+0x8244FEC0 = { name = "mc_Sleep" }
+0x8244FE58 = { name = "mc_ResumeThread" }
 0x823F32E8 = { name = "rex_sub_823F32E8" }
 0x8227D580 = { name = "rex_sub_8227D580" }
 0x8227D734 = { name = "rex_sub_8227D734" }
@@ -25,7 +96,7 @@ out_directory_path = "generated"
 0x82130310 = { name = "rex_sub_82130310", size = 0x128 }
 0x82130438 = { name = "rex_sub_82130438", size = 0x84 }
 0x821304C0 = { name = "rex_sub_821304C0", size = 0x68 }
-0x82130528 = { name = "rex_sub_82130528", size = 0x28 }
+0x82130528 = { name = "operator_new", size = 0x28 }
 0x82130550 = { name = "rex_sub_82130550", size = 0x38 }
 0x82130588 = { name = "rex_sub_82130588", size = 0x28 }
 0x821305B8 = { name = "rex_sub_821305B8", size = 0x2C }
@@ -3327,8 +3398,6 @@ out_directory_path = "generated"
 0x821F9F70 = { name = "rex_sub_821F9F70", size = 0x20 }
 0x821F9F90 = { name = "rex_sub_821F9F90", size = 0x24 }
 0x821F9FB8 = { name = "rex_sub_821F9FB8", size = 0x118 }
-0x821FA110 = { name = "rex_sub_821FA110", size = 0x54 }
-0x821FA1A0 = { name = "rex_sub_821FA1A0", size = 0x6C }
 0x821FA210 = { name = "rex_sub_821FA210", size = 0x20 }
 0x821FA230 = { name = "rex_sub_821FA230", size = 0x28 }
 0x821FA258 = { name = "rex_sub_821FA258", size = 0xFC }
@@ -3350,15 +3419,6 @@ out_directory_path = "generated"
 0x821FB748 = { name = "rex_sub_821FB748", size = 0x134 }
 0x821FB880 = { name = "rex_sub_821FB880", size = 0xB8 }
 0x821FB938 = { name = "rex_sub_821FB938", size = 0x128 }
-0x821FBA60 = { name = "rex_sub_821FBA60", size = 0x48 }
-0x821FBAD0 = { name = "rex_sub_821FBAD0", size = 0x44 }
-0x821FBB58 = { name = "rex_sub_821FBB58", size = 0xC }
-0x821FBB68 = { name = "rex_sub_821FBB68", size = 0x68 }
-0x821FBBD0 = { name = "rex_sub_821FBBD0", size = 0x10 }
-0x821FBBE0 = { name = "rex_sub_821FBBE0", size = 0x54 }
-0x821FBC38 = { name = "rex_sub_821FBC38", size = 0x74 }
-0x821FBCB0 = { name = "rex_sub_821FBCB0", size = 0x40 }
-0x821FBCF0 = { name = "rex_sub_821FBCF0", size = 0x24 }
 0x821FBDD0 = { name = "rex_sub_821FBDD0", size = 0x90 }
 0x821FBE60 = { name = "rex_sub_821FBE60", size = 0x70 }
 0x821FBED0 = { name = "rex_sub_821FBED0", size = 0x98 }
@@ -3371,8 +3431,6 @@ out_directory_path = "generated"
 0x821FC588 = { name = "rex_sub_821FC588", size = 0x608 }
 0x821FCB90 = { name = "rex_sub_821FCB90", size = 0x11C }
 0x821FCCB0 = { name = "rex_sub_821FCCB0", size = 0x168 }
-0x821FCE70 = { name = "rex_sub_821FCE70", size = 0xC }
-0x821FCE80 = { name = "rex_sub_821FCE80", size = 0xC }
 0x821FCE90 = { name = "rex_sub_821FCE90", size = 0x48 }
 0x821FCED8 = { name = "rex_sub_821FCED8", size = 0x50 }
 0x821FCF28 = { name = "rex_sub_821FCF28", size = 0x190 }
@@ -3381,17 +3439,13 @@ out_directory_path = "generated"
 0x821FD5B0 = { name = "rex_sub_821FD5B0", size = 0x8 }
 0x821FD5B8 = { name = "rex_sub_821FD5B8", size = 0x84 }
 0x821FD640 = { name = "rex_sub_821FD640", size = 0x70 }
-0x821FD6B0 = { name = "rex_sub_821FD6B0", size = 0x88 }
-0x821FD738 = { name = "rex_sub_821FD738", size = 0x88 }
 0x821FD7C0 = { name = "rex_sub_821FD7C0", size = 0xB8 }
 0x821FD878 = { name = "rex_sub_821FD878", size = 0x108 }
 0x821FD980 = { name = "rex_sub_821FD980", size = 0xF8 }
 0x821FDA78 = { name = "rex_sub_821FDA78", size = 0x50 }
-0x821FDAC8 = { name = "rex_sub_821FDAC8", size = 0x288 }
 0x821FDD50 = { name = "rex_sub_821FDD50", size = 0xBC }
 0x821FDE10 = { name = "rex_sub_821FDE10", size = 0x64 }
 0x821FDE78 = { name = "rex_sub_821FDE78", size = 0x5C }
-0x821FDED8 = { name = "rex_sub_821FDED8", size = 0x770 }
 0x821FE648 = { name = "rex_sub_821FE648", size = 0x168 }
 0x821FE7B0 = { name = "rex_sub_821FE7B0", size = 0x40 }
 0x821FE868 = { name = "rex_sub_821FE868", size = 0x60 }
@@ -3799,7 +3853,6 @@ out_directory_path = "generated"
 0x8221CC50 = { name = "rex_sub_8221CC50", size = 0x54 }
 0x8221CCA8 = { name = "rex_sub_8221CCA8", size = 0x54 }
 0x8221CD00 = { name = "rex_sub_8221CD00", size = 0x74 }
-0x8221CD78 = { name = "rex_sub_8221CD78", size = 0x54 }
 0x8221CDD0 = { name = "rex_sub_8221CDD0", size = 0x20 }
 0x8221CE80 = { name = "rex_sub_8221CE80", size = 0x98 }
 0x8221CF18 = { name = "rex_sub_8221CF18", size = 0x68 }
@@ -3816,7 +3869,6 @@ out_directory_path = "generated"
 0x8221D420 = { name = "rex_sub_8221D420", size = 0x8 }
 0x8221D428 = { name = "rex_sub_8221D428", size = 0x7C }
 0x8221D4C0 = { name = "rex_sub_8221D4C0", size = 0x50 }
-0x8221D510 = { name = "rex_sub_8221D510", size = 0x50 }
 0x8221D560 = { name = "rex_sub_8221D560", size = 0x100 }
 0x8221D660 = { name = "rex_sub_8221D660", size = 0x44 }
 0x8221D6A8 = { name = "rex_sub_8221D6A8", size = 0x44 }
@@ -3834,7 +3886,6 @@ out_directory_path = "generated"
 0x8221DB40 = { name = "rex_sub_8221DB40", size = 0x50 }
 0x8221DBC0 = { name = "rex_sub_8221DBC0", size = 0x5C }
 0x8221DC20 = { name = "rex_sub_8221DC20", size = 0x5C }
-0x8221DC80 = { name = "rex_sub_8221DC80", size = 0x70 }
 0x8221DCF0 = { name = "rex_sub_8221DCF0", size = 0x78 }
 0x8221DD78 = { name = "rex_sub_8221DD78", size = 0x68 }
 0x8221DDE0 = { name = "rex_sub_8221DDE0", size = 0x30 }
@@ -3856,7 +3907,6 @@ out_directory_path = "generated"
 0x8221EBC0 = { name = "rex_sub_8221EBC0", size = 0x58 }
 0x8221EC18 = { name = "rex_sub_8221EC18", size = 0x5C }
 0x8221EC78 = { name = "rex_sub_8221EC78", size = 0x88 }
-0x8221ED18 = { name = "rex_sub_8221ED18", size = 0x7C }
 0x8221ED98 = { name = "rex_sub_8221ED98", size = 0xC }
 0x8221EDF0 = { name = "rex_sub_8221EDF0", size = 0x6C }
 0x8221EE60 = { name = "rex_sub_8221EE60", size = 0x5C }
@@ -3883,14 +3933,10 @@ out_directory_path = "generated"
 0x82220AE0 = { name = "rex_sub_82220AE0", size = 0x50 }
 0x82220B30 = { name = "rex_sub_82220B30", size = 0xE8 }
 0x82220C18 = { name = "rex_sub_82220C18", size = 0x284 }
-0x82220EA0 = { name = "rex_sub_82220EA0", size = 0x60 }
 0x82220F00 = { name = "rex_sub_82220F00", size = 0x6C }
-0x82220F70 = { name = "rex_sub_82220F70", size = 0x6C }
-0x82220FE0 = { name = "rex_sub_82220FE0", size = 0xC00 }
 0x82221BE0 = { name = "rex_sub_82221BE0", size = 0x1D0 }
 0x82221DB0 = { name = "rex_sub_82221DB0", size = 0x228 }
 0x82221FD8 = { name = "rex_sub_82221FD8", size = 0xA4 }
-0x82222080 = { name = "rex_sub_82222080", size = 0x1C58 }
 0x82223CD8 = { name = "rex_sub_82223CD8", size = 0x9A0 }
 0x82224678 = { name = "rex_sub_82224678", size = 0x12C }
 0x822247A8 = { name = "rex_sub_822247A8", size = 0x174 }
@@ -3943,7 +3989,6 @@ out_directory_path = "generated"
 0x82227DE0 = { name = "rex_sub_82227DE0", size = 0xB8 }
 0x82227E98 = { name = "rex_sub_82227E98", size = 0xB4 }
 0x82227F50 = { name = "rex_sub_82227F50", size = 0x140 }
-0x82228090 = { name = "rex_sub_82228090", size = 0xF0 }
 0x82228180 = { name = "rex_sub_82228180", size = 0x274 }
 0x822283F8 = { name = "rex_sub_822283F8", size = 0x5C }
 0x82228458 = { name = "rex_sub_82228458", size = 0x50 }
@@ -4002,7 +4047,6 @@ out_directory_path = "generated"
 0x8222ABA0 = { name = "rex_sub_8222ABA0", size = 0x94 }
 0x8222AC38 = { name = "rex_sub_8222AC38", size = 0xA4 }
 0x8222ACE0 = { name = "rex_sub_8222ACE0", size = 0x5C4 }
-0x8222B2A8 = { name = "rex_sub_8222B2A8", size = 0xB0 }
 0x8222B3B8 = { name = "rex_sub_8222B3B8", size = 0x758 }
 0x8222BB10 = { name = "rex_sub_8222BB10", size = 0x6C }
 0x8222BBB8 = { name = "rex_sub_8222BBB8", size = 0x78 }
@@ -4013,23 +4057,19 @@ out_directory_path = "generated"
 0x8222C2F0 = { name = "rex_sub_8222C2F0", size = 0xA0 }
 0x8222C390 = { name = "rex_sub_8222C390", size = 0x320 }
 0x8222C720 = { name = "rex_sub_8222C720", size = 0x78 }
-0x8222C798 = { name = "rex_sub_8222C798", size = 0x4C }
 0x8222C7E8 = { name = "rex_sub_8222C7E8", size = 0x4 }
 0x8222C878 = { name = "rex_sub_8222C878", size = 0xCC }
 0x8222C948 = { name = "rex_sub_8222C948", size = 0x114 }
 0x8222CA60 = { name = "rex_sub_8222CA60", size = 0x298 }
 0x8222CD48 = { name = "rex_sub_8222CD48", size = 0x68 }
-0x8222CDB0 = { name = "rex_sub_8222CDB0", size = 0x88 }
 0x8222CE98 = { name = "rex_sub_8222CE98", size = 0x4C8 }
 0x8222D360 = { name = "rex_sub_8222D360", size = 0x15C }
 0x8222D4F8 = { name = "rex_sub_8222D4F8", size = 0x21C }
-0x8222D718 = { name = "rex_sub_8222D718", size = 0x68 }
 0x8222D780 = { name = "rex_sub_8222D780", size = 0x5C }
 0x8222D7E0 = { name = "rex_sub_8222D7E0", size = 0x3E8 }
 0x8222DC78 = { name = "rex_sub_8222DC78", size = 0xB0 }
 0x8222DD28 = { name = "rex_sub_8222DD28", size = 0x14C }
 0x8222DE78 = { name = "rex_sub_8222DE78", size = 0x274 }
-0x8222E0F0 = { name = "rex_sub_8222E0F0", size = 0x60 }
 0x8222E1B8 = { name = "rex_sub_8222E1B8", size = 0x90 }
 0x8222E248 = { name = "rex_sub_8222E248", size = 0xF0 }
 0x8222E338 = { name = "rex_sub_8222E338", size = 0x578 }
@@ -4041,11 +4081,9 @@ out_directory_path = "generated"
 0x8222F030 = { name = "rex_sub_8222F030", size = 0x7C }
 0x8222F0B0 = { name = "rex_sub_8222F0B0", size = 0x124 }
 0x8222F1D8 = { name = "rex_sub_8222F1D8", size = 0x5C }
-0x8222F238 = { name = "rex_sub_8222F238", size = 0x88 }
 0x8222F2C0 = { name = "rex_sub_8222F2C0", size = 0x94 }
 0x8222F3C8 = { name = "rex_sub_8222F3C8", size = 0xB0 }
 0x8222F478 = { name = "rex_sub_8222F478", size = 0x70 }
-0x8222F4E8 = { name = "rex_sub_8222F4E8", size = 0xD0 }
 0x8222F5B8 = { name = "rex_sub_8222F5B8", size = 0xBC }
 0x8222F678 = { name = "rex_sub_8222F678", size = 0x80 }
 0x8222F6F8 = { name = "rex_sub_8222F6F8", size = 0x604 }
@@ -4065,7 +4103,6 @@ out_directory_path = "generated"
 0x822314D0 = { name = "rex_sub_822314D0", size = 0x1F0 }
 0x822316C0 = { name = "rex_sub_822316C0", size = 0x60 }
 0x82231720 = { name = "rex_sub_82231720", size = 0x1E0 }
-0x82231900 = { name = "rex_sub_82231900", size = 0xA8 }
 0x822319C0 = { name = "rex_sub_822319C0", size = 0x334 }
 0x82231CF8 = { name = "rex_sub_82231CF8", size = 0x64 }
 0x82231D60 = { name = "rex_sub_82231D60", size = 0x44 }
@@ -4073,7 +4110,6 @@ out_directory_path = "generated"
 0x82232010 = { name = "rex_sub_82232010", size = 0x80 }
 0x82232090 = { name = "rex_sub_82232090", size = 0x414 }
 0x822324A8 = { name = "rex_sub_822324A8", size = 0x20C }
-0x822326B8 = { name = "rex_sub_822326B8", size = 0x64 }
 0x82232720 = { name = "rex_sub_82232720", size = 0x6C }
 0x82232790 = { name = "rex_sub_82232790", size = 0x1A8 }
 0x82232938 = { name = "rex_sub_82232938", size = 0x1C0 }
@@ -11525,9 +11561,7 @@ out_directory_path = "generated"
 0x8244FD08 = { name = "rex_sub_8244FD08", size = 0x88 }
 0x8244FD90 = { name = "rex_sub_8244FD90", size = 0x84 }
 0x8244FE18 = { name = "rex_sub_8244FE18", size = 0x3C }
-0x8244FE58 = { name = "rex_sub_8244FE58", size = 0x3C }
 0x8244FE98 = { name = "rex_sub_8244FE98", size = 0x24 }
-0x8244FEC0 = { name = "rex_sub_8244FEC0", size = 0x8 }
 0x8244FEC8 = { name = "rex_sub_8244FEC8", size = 0xC }
 0x8244FED8 = { name = "rex_sub_8244FED8", size = 0xC }
 0x8244FEE8 = { name = "rex_sub_8244FEE8", size = 0x10 }
@@ -15815,7 +15849,6 @@ out_directory_path = "generated"
 0x82554630 = { name = "rex_sub_82554630", size = 0xC8 }
 0x825546F8 = { name = "rex_sub_825546F8", size = 0x8C }
 0x82554788 = { name = "rex_sub_82554788", size = 0x10 }
-0x82554798 = { name = "rex_sub_82554798", size = 0x68 }
 0x82554800 = { name = "rex_sub_82554800", size = 0x1FC }
 0x82554A00 = { name = "rex_sub_82554A00", size = 0x88 }
 0x82554A88 = { name = "rex_sub_82554A88", size = 0x180 }
@@ -18653,7 +18686,6 @@ out_directory_path = "generated"
 0x82637370 = { name = "rex_sub_82637370", size = 0x54 }
 0x826373C8 = { name = "rex_sub_826373C8", size = 0x54 }
 0x82637420 = { name = "rex_sub_82637420", size = 0x114 }
-0x82637538 = { name = "rex_sub_82637538", size = 0x68 }
 0x826375A0 = { name = "rex_sub_826375A0", size = 0x10 }
 0x826375B0 = { name = "rex_sub_826375B0", size = 0xD0 }
 0x82637680 = { name = "rex_sub_82637680", size = 0xB4 }
@@ -18672,25 +18704,21 @@ out_directory_path = "generated"
 0x82637E68 = { name = "rex_sub_82637E68", size = 0x358 }
 0x826381C0 = { name = "rex_sub_826381C0", size = 0x44 }
 0x82638208 = { name = "rex_sub_82638208", size = 0x40 }
-0x82638248 = { name = "rex_sub_82638248", size = 0x84 }
 0x826382D0 = { name = "rex_sub_826382D0", size = 0x4C }
 0x82638320 = { name = "rex_sub_82638320", size = 0x16C }
 0x82638490 = { name = "rex_sub_82638490", size = 0x180 }
 0x82638610 = { name = "rex_sub_82638610", size = 0x134 }
 0x82638748 = { name = "rex_sub_82638748", size = 0x234 }
 0x82638980 = { name = "rex_sub_82638980", size = 0x238 }
-0x82638BB8 = { name = "rex_sub_82638BB8", size = 0x98 }
 0x82638C50 = { name = "rex_sub_82638C50", size = 0x34C }
 0x82638FA0 = { name = "rex_sub_82638FA0", size = 0x11C }
 0x826390C0 = { name = "rex_sub_826390C0", size = 0x134 }
 0x826391F8 = { name = "rex_sub_826391F8", size = 0x5C }
-0x82639258 = { name = "rex_sub_82639258", size = 0x68 }
 0x826392C0 = { name = "rex_sub_826392C0", size = 0x44 }
 0x82639328 = { name = "rex_sub_82639328", size = 0x68 }
 0x82639390 = { name = "rex_sub_82639390", size = 0x5C }
 0x826393F0 = { name = "rex_sub_826393F0", size = 0xA4 }
 0x82639498 = { name = "rex_sub_82639498", size = 0x64C }
-0x82639AE8 = { name = "rex_sub_82639AE8", size = 0x7C }
 0x82639B68 = { name = "rex_sub_82639B68", size = 0xDC }
 0x82639C48 = { name = "rex_sub_82639C48", size = 0xD4 }
 0x82639D20 = { name = "rex_sub_82639D20", size = 0x80 }
@@ -18702,13 +18730,10 @@ out_directory_path = "generated"
 0x8263A260 = { name = "rex_sub_8263A260", size = 0x110 }
 0x8263A370 = { name = "rex_sub_8263A370", size = 0x134 }
 0x8263A4A8 = { name = "rex_sub_8263A4A8", size = 0x14C }
-0x8263A5F8 = { name = "rex_sub_8263A5F8", size = 0x74 }
 0x8263A688 = { name = "rex_sub_8263A688", size = 0xA0 }
 0x8263A728 = { name = "rex_sub_8263A728", size = 0x3D8 }
 0x8263AB00 = { name = "rex_sub_8263AB00", size = 0x188 }
-0x8263AC88 = { name = "rex_sub_8263AC88", size = 0x80 }
 0x8263AD08 = { name = "rex_sub_8263AD08", size = 0x58 }
-0x8263AD60 = { name = "rex_sub_8263AD60", size = 0x48 }
 0x8263ADA8 = { name = "rex_sub_8263ADA8", size = 0x10 }
 0x8263ADB8 = { name = "rex_sub_8263ADB8", size = 0xA4 }
 0x8263AE60 = { name = "rex_sub_8263AE60", size = 0x90 }
@@ -19029,7 +19054,6 @@ out_directory_path = "generated"
 0x8264FA68 = { name = "rex_sub_8264FA68", size = 0x364 }
 0x8264FDD0 = { name = "rex_sub_8264FDD0", size = 0x144 }
 0x8264FF18 = { name = "rex_sub_8264FF18", size = 0x30 }
-0x8264FF48 = { name = "rex_sub_8264FF48", size = 0x7C }
 0x8264FFC8 = { name = "rex_sub_8264FFC8", size = 0x34 }
 0x82650000 = { name = "rex_sub_82650000", size = 0x38 }
 0x82650038 = { name = "rex_sub_82650038", size = 0x3C8 }
@@ -19996,7 +20020,6 @@ out_directory_path = "generated"
 0x8268E1F0 = { name = "rex_sub_8268E1F0", size = 0xDC }
 0x8268E2D0 = { name = "rex_sub_8268E2D0", size = 0x90 }
 0x8268E360 = { name = "rex_sub_8268E360", size = 0xCC }
-0x8268E430 = { name = "rex_sub_8268E430", size = 0x74 }
 0x8268E4B8 = { name = "rex_sub_8268E4B8", size = 0xBC }
 0x8268E578 = { name = "rex_sub_8268E578", size = 0x40 }
 0x8268E5B8 = { name = "rex_sub_8268E5B8", size = 0x40 }
@@ -20039,7 +20062,6 @@ out_directory_path = "generated"
 0x826911E8 = { name = "rex_sub_826911E8", size = 0x118 }
 0x82691300 = { name = "rex_sub_82691300", size = 0x2E8 }
 0x826915E8 = { name = "rex_sub_826915E8", size = 0x68 }
-0x82691650 = { name = "rex_sub_82691650", size = 0x7C }
 0x826916D0 = { name = "rex_sub_826916D0", size = 0x294 }
 0x82691968 = { name = "rex_sub_82691968", size = 0xD8 }
 0x82691A40 = { name = "rex_sub_82691A40", size = 0x50 }
@@ -24969,9 +24991,3 @@ return_on_true = true
 address = 0x827440D8
 name = "Patch_DisableRubberBanding"
 return_on_true = true
-
-[rexcrt]
-RtlAllocateHeap = 0x82134860
-RtlFreeHeap = 0x82135150
-RtlSizeHeap = 0x82133B00
-RtlReAllocateHeap = 0x82135440

@@ -15,6 +15,10 @@ include(generated/rexglue.cmake)
 # Sources
 set(LARECOMP_SOURCES
     src/main.cpp
+    src/spdlog_console.cpp
+    src/crash_handler.cpp
+    src/mc_engine/threading.cpp
+    src/mc_engine/hooks.cpp
 )
 
 if(WIN32)

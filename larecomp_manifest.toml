@@ -1,5 +1,5 @@
 [project]
-sdk_version = "0.8.0.31"
+sdk_version = "0.8.0.55"
 name = "larecomp"
 
 [entrypoint]

@@ -2,10 +2,13 @@
 
 #include <rex/rex_app.h>
 #include <rex/system/flags.h>
+#include "discord_rpc/discord_rpc.h"
 #include "mc_engine/threading.h"
-#include "spdlog/spdlog_console.h"
 #include "mc_engine/logging.h"
-#include "spdlog/crash_handler.h"
+#include "mc_engine/graphics_button.h"
+#include "spdlog_console.h"
+#include "larecomp_log.h"
+#include "crash_handler.h"
 
 #include <cstdint>
 #include <memory>
@@ -21,10 +24,10 @@ class LarecompApp : public rex::ReXApp {
               rex::PPCImageInfo ppc_info)
       : rex::ReXApp(ctx, name, ppc_info) {
     InitLarecompLogging();
-    MC_INFO("LA Recompiled - @by mzzvxm");
+    LARECOMP_APP_INFO("LA Recompiled - @by mzzvxm");
     InstallCrashLogger();
     if (auto* w = window()) {
-      w->SetTitle("Midnight Club LosAngeles - by @mzzvxm");
+      w->SetTitle("Midnight Club Los Angeles - by @mzzvxm");
     }
   }
 
@@ -34,7 +37,10 @@ class LarecompApp : public rex::ReXApp {
         new LarecompApp(ctx, "larecomp", PPCImageConfig));
   }
 
-  void OnShutdown() override { mc::DisableHighResTimer(); }
+  void OnShutdown() override {
+    LARECOMP_Discord_Shutdown();
+    mc::DisableHighResTimer();
+  }
 
   void OnConfigurePaths(rex::PathConfig& paths) override {
     const auto root = ExeDir();
@@ -56,7 +62,10 @@ class LarecompApp : public rex::ReXApp {
   }
 
   void OnPostSetup() override {
-    MC_INFO("by @mzzvxm. base memory: 0x{:016X}",
+    LARECOMP_APP_INFO("by @mzzvxm. base memory: 0x{:016X}",
                       reinterpret_cast<std::uintptr_t>(g_guest_mem));
+
+  LARECOMP_Discord_Init();
+  mc::ui::InitGraphicsButtonPatch();
   }
 };

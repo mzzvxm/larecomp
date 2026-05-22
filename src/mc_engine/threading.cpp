@@ -4,7 +4,6 @@
 
 #include <rex/cvar.h>
 #include <rex/ppc.h>
-#include <rex/types.h>
 #include <rex/system/xthread.h>
 
 #if defined(_WIN32)

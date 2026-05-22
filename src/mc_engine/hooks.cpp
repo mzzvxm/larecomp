@@ -1,5 +1,5 @@
 #include <rex/cvar.h>
-#include <rex/ppc/types.h>
+#include <rex/ppc.h>
 #include <rex/system/kernel_state.h>
 #include <chrono>
 #include <cstdint>
@@ -7,8 +7,9 @@
 #include <cstring>
 #include <rex/ui/imgui_dialog.h>
 #include "imgui.h"
+#include "logging.h"
 #include "hooks.h"
-#include "rex_macros.h"
+#include "graphics_button.h"
 
 // CVAR DEFINITIONS (Will appear in F4 menu)
 // The '.lifecycle(kRequiresRestart)' forces the user to restart the game if they change the value.
@@ -83,4 +84,14 @@ bool Patch_PhysicsCollision() {
 
 bool Patch_DisableRubberBanding() {
     return REXCVAR_GET(disable_rubberbanding);
+}
+
+bool OpenRexGraphicsFromGameOptions_826686D4(PPCRegister& r3) {
+    mc::ui::RequestOpenRexGraphicsMenu();
+
+    // O handler original retornaria 1 quando consumisse a ação.
+    r3.u64 = 1;
+
+    // Pula o bloco original de abrir Game Options e cai no epílogo.
+    return true;
 }

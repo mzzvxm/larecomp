@@ -10,6 +10,8 @@ project(larecomp LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(REXGLUE_REQUIRED_GRAPHICS_BACKENDS "d3d12;vulkan" CACHE STRING "Required ReXGlue graphics backends")
+
 include(generated/rexglue.cmake)
 
 # Sources
@@ -17,10 +19,14 @@ set(LARECOMP_SOURCES
     src/main.cpp
     src/spdlog_console.cpp
     src/crash_handler.cpp
+
     src/mc_engine/threading.cpp
     src/mc_engine/hooks.cpp
-)
+    src/mc_engine/graphics_button.cpp
 
+    src/discord_rpc/discord_rpc.cpp
+    src/discord_rpc/discord_hooks.cpp
+)
 if(WIN32)
     add_executable(larecomp WIN32 ${LARECOMP_SOURCES})
 else()

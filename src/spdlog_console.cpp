@@ -18,7 +18,7 @@ void InitLarecompLogging() {
     rex::LogConfig config;
     config.default_level = spdlog::level::debug;
     config.log_to_console = true;
-    config.log_file = "debug_la.txt";
+    config.log_file = "debug_la.log";
 
     config.console_pattern = "[%^%l%$] [%n] [t%t] %v";
     config.file_pattern    = "[%Y-%m-%d %H:%M:%S.%e] [%l] [%n] [t%t] %v";

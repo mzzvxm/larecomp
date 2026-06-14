@@ -38,3 +38,7 @@ void InitLarecompLogging() {
     spdlog::flush_on(spdlog::level::warn);
     spdlog::flush_every(std::chrono::seconds(1));
 }
+
+void ShutdownLarecompLogging() {
+    spdlog::shutdown();
+}

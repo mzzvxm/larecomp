@@ -10,6 +10,7 @@
 #include "logging.h"
 #include "hooks.h"
 #include "graphics_button.h"
+#include "larecomp_log.h"
 
 // CVAR DEFINITIONS (Will appear in F4 menu)
 // The '.lifecycle(kRequiresRestart)' forces the user to restart the game if they change the value.
@@ -41,10 +42,76 @@ REXCVAR_DEFINE_BOOL(dbg_print, false, "MCLA/Patches", "Enable DbgPrint console o
 REXCVAR_DEFINE_BOOL(physics_noclip, true, "MCLA/Physics", "Disable CCD/Pairwise Collision (Noclip)")
     .lifecycle(rex::cvar::Lifecycle::kHotReload);
 
+REXCVAR_DEFINE_STRING(aspect_ratio, "16:9", "MCLA/Patches", "Screen Aspect Ratio")
+    .allowed({"16:9", "21:9", "32:9"})
+    .lifecycle(rex::cvar::Lifecycle::kHotReload);
+
+// Function to apply/revert the Aspect Ratio patch in GPU memory
+static void ApplyAspectRatioPatch(std::string_view ratio) {
+    extern uint8_t* g_guest_mem;
+    if (!g_guest_mem) return;
+    
+    uint8_t* patch_ptr = g_guest_mem + 0x8201E7EC;
+    
+    LARECOMP_APP_INFO("ApplyAspectRatioPatch called! Ratio: {}, Memory Before: {:02X} {:02X} {:02X} {:02X}", 
+        ratio, patch_ptr[0], patch_ptr[1], patch_ptr[2], patch_ptr[3]);
+    
+    uint32_t val = 0x3FE38E39; // 16:9 Default (1.777777f)
+    if (ratio == "21:9") {
+        val = 0x40155555; // 21:9 (2.333333f)
+    } else if (ratio == "32:9") {
+        val = 0x40638E39; // 32:9 (3.555555f)
+    }
+    
+    // Write the 4 bytes in Big-Endian at the correct address
+    patch_ptr[0] = (val >> 24) & 0xFF; // MSB
+    patch_ptr[1] = (val >> 16) & 0xFF;
+    patch_ptr[2] = (val >> 8)  & 0xFF;
+    patch_ptr[3] = val         & 0xFF; // LSB
+    
+    LARECOMP_APP_INFO("Memory After: {:02X} {:02X} {:02X} {:02X}", 
+        patch_ptr[0], patch_ptr[1], patch_ptr[2], patch_ptr[3]);
+}
+
+void InitHooks() {
+    ApplyAspectRatioPatch(REXCVAR_GET(aspect_ratio));
+
+    rex::cvar::RegisterChangeCallback("aspect_ratio", 
+        [](std::string_view name, std::string_view new_value) {
+            ApplyAspectRatioPatch(new_value);
+        }
+    );
+}
+
 // HOOK FUNCTIONS (Called in the middle of translated Assembly execution)
 
 bool SkipIntro() {
     return REXCVAR_GET(skip_intro);
+}
+
+static bool GetAspectRatio(double& out_val) {
+    std::string ratio = REXCVAR_GET(aspect_ratio);
+    if (ratio == "21:9") {
+        out_val = 2.3333333;
+        return true;
+    } else if (ratio == "32:9") {
+        out_val = 3.5555556;
+        return true;
+    }
+    return false;
+}
+
+bool Patch_AspectRatio_82233EB4(PPCRegister& f0) {
+    return GetAspectRatio(f0.f64);
+}
+bool Patch_AspectRatio_82214BB8(PPCRegister& f10) {
+    return GetAspectRatio(f10.f64);
+}
+bool Patch_AspectRatio_822E5E68(PPCRegister& f12) {
+    return GetAspectRatio(f12.f64);
+}
+bool Patch_AspectRatio_8223E5E0(PPCRegister& f13) {
+    return GetAspectRatio(f13.f64);
 }
 
 bool Patch_60FPS_Jump() {
@@ -89,9 +156,9 @@ bool Patch_DisableRubberBanding() {
 bool OpenRexGraphicsFromGameOptions_826686D4(PPCRegister& r3) {
     mc::ui::RequestOpenRexGraphicsMenu();
 
-    // O handler original retornaria 1 quando consumisse a ação.
+    // The original handler would return 1 when consuming the action.
     r3.u64 = 1;
 
-    // Pula o bloco original de abrir Game Options e cai no epílogo.
+    // Skip the original Game Options block and fall through to the epilogue.
     return true;
 }

@@ -9,6 +9,7 @@
 #include "spdlog_console.h"
 #include "larecomp_log.h"
 #include "crash_handler.h"
+#include "mc_engine/hooks.h"
 
 #include <cstdint>
 #include <memory>
@@ -40,6 +41,7 @@ class LarecompApp : public rex::ReXApp {
   void OnShutdown() override {
     LARECOMP_Discord_Shutdown();
     mc::DisableHighResTimer();
+    ShutdownLarecompLogging();
   }
 
   void OnConfigurePaths(rex::PathConfig& paths) override {
@@ -65,7 +67,8 @@ class LarecompApp : public rex::ReXApp {
     LARECOMP_APP_INFO("by @mzzvxm. base memory: 0x{:016X}",
                       reinterpret_cast<std::uintptr_t>(g_guest_mem));
 
-  LARECOMP_Discord_Init();
-  mc::ui::InitGraphicsButtonPatch();
+    LARECOMP_Discord_Init();
+    mc::ui::InitGraphicsButtonPatch();
+    InitHooks();
   }
 };

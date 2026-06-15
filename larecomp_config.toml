@@ -24995,6 +24995,61 @@ address = 0x822729A8
 name = "RpcHook_RaceResults_822729A8"
 registers = []
 
+[[midasm_hook]]
+address = 0x82233EB4
+name = "Patch_AspectRatio_82233EB4"
+registers = ["f0"]
+jump_address_on_true = 0x82233EB8
+
+[[midasm_hook]]
+address = 0x82214BB8
+name = "Patch_AspectRatio_82214BB8"
+registers = ["f10"]
+jump_address_on_true = 0x82214BBC
+
+[[midasm_hook]]
+address = 0x822E5E68
+name = "Patch_AspectRatio_822E5E68"
+registers = ["f12"]
+jump_address_on_true = 0x822E5E6C
+
+[[midasm_hook]]
+address = 0x8223E5E0
+name = "Patch_AspectRatio_8223E5E0"
+registers = ["f13"]
+jump_address_on_true = 0x8223E5E4
+
+# Depth of Field (DoF) Hooks
+[[midasm_hook]]
+address = 0x82307808 # PostProcessing_SetGameDof
+name = "Patch_DisableDoF"
+registers = []
+return_on_true = true
+
+[[midasm_hook]]
+address = 0x823077E8 # PostProcessing_SetGarageDof
+name = "Patch_DisableDoF"
+registers = []
+return_on_true = true
+
+[[midasm_hook]]
+address = 0x823077C8 # PostProcessing_SetCutsceneDof
+name = "Patch_DisableDoF"
+registers = []
+return_on_true = true
+
+[[midasm_hook]]
+address = 0x82307BD0 # PostProcessing_SetCutsceneDofFar
+name = "Patch_DisableDoF"
+registers = []
+return_on_true = true
+
+[[midasm_hook]]
+address = 0x82307BA0 # PostProcessing_SetCutsceneDofNear
+name = "Patch_DisableDoF"
+registers = []
+return_on_true = true
+
 [rexcrt]
 RtlAllocateHeap = 0x82134860
 RtlFreeHeap = 0x82135150

@@ -26,6 +26,8 @@ set(LARECOMP_SOURCES
 
     src/discord_rpc/discord_rpc.cpp
     src/discord_rpc/discord_hooks.cpp
+
+    src/isoinstaller/larecomp_iso_installer.cpp
 )
 if(WIN32)
     add_executable(larecomp WIN32 ${LARECOMP_SOURCES})

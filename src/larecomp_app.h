@@ -10,11 +10,13 @@
 #include "larecomp_log.h"
 #include "crash_handler.h"
 #include "mc_engine/hooks.h"
+#include "isoinstaller/larecomp_iso_installer.h"
 
 #include <cstdint>
 #include <memory>
 #include <string_view>
 #include <filesystem>
+#include <cstdlib>
 
 extern uint8_t* g_guest_mem;
 
@@ -42,6 +44,7 @@ class LarecompApp : public rex::ReXApp {
     LARECOMP_Discord_Shutdown();
     mc::DisableHighResTimer();
     ShutdownLarecompLogging();
+    std::_Exit(0);
   }
 
   void OnConfigurePaths(rex::PathConfig& paths) override {
@@ -58,9 +61,18 @@ class LarecompApp : public rex::ReXApp {
     paths.game_data_root = default_game_data;
 
     const auto update = root / "update";
-    if (std::filesystem::exists(update)) {
-      paths.update_data_root = update;
+  }
+
+  std::optional<rex::PathConfig> OnFinalizePaths(const rex::PathConfig& defaults, std::function<void(rex::PathConfig)> resume) override {
+    if (larecomp::IsGameInstalled(defaults.game_data_root)) {
+      return defaults;
     }
+
+    rex::PathConfig installed_paths;
+    if (!larecomp::RunRexglueIsoInstallWizardBlocking(app_context(), window(), imgui_drawer(), defaults, installed_paths)) {
+      std::_Exit(1);
+    }
+    return installed_paths;
   }
 
   void OnPostSetup() override {

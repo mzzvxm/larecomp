@@ -25019,6 +25019,37 @@ name = "Patch_AspectRatio_8223E5E0"
 registers = ["f13"]
 jump_address_on_true = 0x8223E5E4
 
+# Depth of Field (DoF) Hooks
+[[midasm_hook]]
+address = 0x82307808 # PostProcessing_SetGameDof
+name = "Patch_DisableDoF"
+registers = []
+return_on_true = true
+
+[[midasm_hook]]
+address = 0x823077E8 # PostProcessing_SetGarageDof
+name = "Patch_DisableDoF"
+registers = []
+return_on_true = true
+
+[[midasm_hook]]
+address = 0x823077C8 # PostProcessing_SetCutsceneDof
+name = "Patch_DisableDoF"
+registers = []
+return_on_true = true
+
+[[midasm_hook]]
+address = 0x82307BD0 # PostProcessing_SetCutsceneDofFar
+name = "Patch_DisableDoF"
+registers = []
+return_on_true = true
+
+[[midasm_hook]]
+address = 0x82307BA0 # PostProcessing_SetCutsceneDofNear
+name = "Patch_DisableDoF"
+registers = []
+return_on_true = true
+
 [rexcrt]
 RtlAllocateHeap = 0x82134860
 RtlFreeHeap = 0x82135150

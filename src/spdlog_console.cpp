@@ -6,6 +6,7 @@
 #include <spdlog/spdlog.h>
 
 #include <chrono>
+#include <cstdio>
 
 void InitLarecompLogging() {
     static bool initialized = false;
@@ -14,6 +15,8 @@ void InitLarecompLogging() {
     }
 
     initialized = true;
+
+    std::remove("debug_la.txt");
 
     rex::LogConfig config;
     config.default_level = spdlog::level::debug;

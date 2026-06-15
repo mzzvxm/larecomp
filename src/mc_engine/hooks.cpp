@@ -42,6 +42,9 @@ REXCVAR_DEFINE_BOOL(dbg_print, false, "MCLA/Patches", "Enable DbgPrint console o
 REXCVAR_DEFINE_BOOL(physics_noclip, true, "MCLA/Physics", "Disable CCD/Pairwise Collision (Noclip)")
     .lifecycle(rex::cvar::Lifecycle::kHotReload);
 
+REXCVAR_DEFINE_BOOL(disable_dof, false, "MCLA/Patches", "Disable Depth of Field (DoF) completely.")
+    .lifecycle(rex::cvar::Lifecycle::kRequiresRestart);
+
 REXCVAR_DEFINE_STRING(aspect_ratio, "16:9", "MCLA/Patches", "Screen Aspect Ratio")
     .allowed({"16:9", "21:9", "32:9"})
     .lifecycle(rex::cvar::Lifecycle::kHotReload);
@@ -151,6 +154,10 @@ bool Patch_PhysicsCollision() {
 
 bool Patch_DisableRubberBanding() {
     return REXCVAR_GET(disable_rubberbanding);
+}
+
+bool Patch_DisableDoF() {
+    return REXCVAR_GET(disable_dof);
 }
 
 bool OpenRexGraphicsFromGameOptions_826686D4(PPCRegister& r3) {

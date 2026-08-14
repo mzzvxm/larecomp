@@ -1,9 +1,9 @@
 [project]
-sdk_version = "0.8.0.55"
+sdk_version = "0.10.0"
 name = "larecomp"
 
 [entrypoint]
-file_path = "assets/default.xex"
+file_path = "out/build/win-amd64-release/assets/default.xex"
 out_directory_path = "generated"
 includes = [
   "larecomp_config.toml",

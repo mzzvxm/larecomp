@@ -18,15 +18,19 @@
 
 #include <rex/logging.h>
 #include <rex/ui/overlay/install_wizard_overlay.h>
+#include <rex/ui/window.h>
 #include <rex/ui/windowed_app_context.h>
 
 #if defined(_WIN32)
+#ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
+#endif
+#ifndef NOMINMAX
 #define NOMINMAX
+#endif
 #include <commdlg.h>
 #include <windows.h>
 
-#include <rex/ui/window_win.h>
 #elif defined(__APPLE__)
 #else
 #include <gtk/gtk.h>
@@ -505,10 +509,9 @@ bool RunRexglueIsoInstallWizardBlocking(rex::ui::WindowedAppContext& app_context
                               });
 
 #if defined(_WIN32)
-  HWND hwnd = nullptr;
-  if (auto* win32_window = dynamic_cast<rex::ui::Win32Window*>(window)) {
-    hwnd = win32_window->hwnd();
-  }
+  // The concrete window type is the SDL3 backend now; the native handle is the
+  // portable way to reach the HWND.
+  HWND hwnd = window ? static_cast<HWND>(window->GetNativeWindowHandle()) : nullptr;
 #endif
 
   REXLOG_INFO("Entering rexglue ISO installer pump");

@@ -40,6 +40,16 @@ class LarecompApp : public rex::ReXApp {
         new LarecompApp(ctx, "larecomp", PPCImageConfig));
   }
 
+  void OnPreSetup(rex::RuntimeConfig& config) override {
+    // The Xenos GPU emulation is a runtime-loaded plugin as of SDK 0.9.0 and
+    // the gpu_plugin cvar defaults to empty (= no GPU at all). Name it here so
+    // the game works without anything in larecomp.toml; an explicit cvar still
+    // wins because this only fills in the blank.
+    if (config.gpu_plugin.empty()) {
+      config.gpu_plugin = "xenos";
+    }
+  }
+
   void OnShutdown() override {
     LARECOMP_Discord_Shutdown();
     mc::DisableHighResTimer();

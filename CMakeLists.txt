@@ -10,7 +10,11 @@ project(larecomp LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(REXGLUE_REQUIRED_GRAPHICS_BACKENDS "d3d12;vulkan" CACHE STRING "Required ReXGlue graphics backends")
+if(WIN32)
+    set(REXGLUE_REQUIRED_GRAPHICS_BACKENDS "d3d12;vulkan" CACHE STRING "Required ReXGlue graphics backends")
+else()
+    set(REXGLUE_REQUIRED_GRAPHICS_BACKENDS "vulkan" CACHE STRING "Required ReXGlue graphics backends")
+endif()
 
 include(generated/rexglue.cmake)
 
@@ -35,10 +39,13 @@ else()
     add_executable(larecomp ${LARECOMP_SOURCES})
 endif()
 
-rexglue_setup_target(larecomp)
+# GPU_PLUGINS stages rexgpu-xenos next to the executable: the Xenos GPU
+# emulation is a runtime-loaded plugin now, so it is never linked and
+# TARGET_RUNTIME_DLLS does not see it.
+rexglue_setup_target(larecomp GPU_PLUGINS xenos)
 
 # rexglue 0.7.4
  target_link_libraries(larecomp
      PRIVATE
-     dxgi 
+     dxgi
  )

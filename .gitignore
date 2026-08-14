@@ -1,9 +1,20 @@
 assets/
 generated/
+generated_xeo3/
 out/
+tools/
 named_functions_ida.toml
 debug_mcla.txt
+debug_la.txt
 x360ce.exe
-src/main.cpp.bak
-CMakeLists.txt.bak
 larecomp_config-graine.toml
+
+# Local scratch: editor backups, archives, generated asset packs.
+*.bak
+*.rar
+
+# src/assets/ is source, not build output — the .rc embeds the icon from it.
+# The shader pack next to it is generated and far too big to version.
+!src/assets/
+src/assets/*
+!src/assets/mcla.ico

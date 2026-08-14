@@ -1,3 +1,4 @@
+#ifndef REXGLUE_HAS_XEO3_TARGET
 // larecomp - ReXGlue Recompiled Project
 //
 // This file is yours to edit. 'rexglue migrate' will NOT overwrite it.
@@ -22,3 +23,4 @@ extern "C" double roundeven(double x) {
 }
 
 REX_DEFINE_APP(larecomp, LarecompApp::Create)
+#endif // REXGLUE_HAS_XEO3_TARGET

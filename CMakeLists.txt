@@ -33,19 +33,39 @@ set(LARECOMP_SOURCES
 
     src/isoinstaller/larecomp_iso_installer.cpp
 )
-if(WIN32)
-    add_executable(larecomp WIN32 ${LARECOMP_SOURCES})
+if(REXGLUE_ENABLE_XEO3_TARGET)
+    # The XEO3 DLL is a separate build, not a variant of this one: it needs the
+    # XEO3 Clang fork (this project's compiler cannot produce the calling
+    # convention), and it must not link rexruntime -- inside XEO3 the real
+    # kernel and GPU are the emulator's, not ours. So none of LARECOMP_SOURCES
+    # belongs in it.
+    #
+    # Sources come from a dedicated codegen run:
+    #   rexglue codegen --xeo3 larecomp_xeo3_manifest.toml   -> generated_xeo3/
+    # which also writes generated_xeo3/CMakeLists.txt. This drives that project.
+    message(STATUS "Building XEO3 DLL target for Microsoft Emulator")
+    rexglue_add_xeo3_dll_target(larecomp_xeo3
+        GENERATED_DIR "${CMAKE_CURRENT_SOURCE_DIR}/generated_xeo3"
+        OUTPUT_NAME   "xeo3_545407F8"
+    )
 else()
     add_executable(larecomp ${LARECOMP_SOURCES})
+    if(WIN32)
+    else()
+        add_executable(larecomp ${LARECOMP_SOURCES})
+    endif()
+
+    # GPU_PLUGINS stages rexgpu-xenos next to the executable: the Xenos GPU
+    # emulation is a runtime-loaded plugin now, so it is never linked and
+    # TARGET_RUNTIME_DLLS does not see it.
+    rexglue_setup_target(larecomp GPU_PLUGINS xenos)
+
+    # rexglue 0.7.4
+    if(WIN32)
+
+        target_link_libraries(larecomp
+            PRIVATE
+            dxgi
+        )
+    endif()
 endif()
-
-# GPU_PLUGINS stages rexgpu-xenos next to the executable: the Xenos GPU
-# emulation is a runtime-loaded plugin now, so it is never linked and
-# TARGET_RUNTIME_DLLS does not see it.
-rexglue_setup_target(larecomp GPU_PLUGINS xenos)
-
-# rexglue 0.7.4
- target_link_libraries(larecomp
-     PRIVATE
-     dxgi
- )

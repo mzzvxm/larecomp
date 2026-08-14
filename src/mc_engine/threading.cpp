@@ -1,3 +1,4 @@
+#ifndef REXGLUE_HAS_XEO3_TARGET
 #include "threading.h"
 
 #include "logging.h"
@@ -7,7 +8,9 @@
 #include <rex/system/xthread.h>
 
 #if defined(_WIN32)
+#ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
+#endif
 #include <Windows.h>
 #include <timeapi.h>
 #include <chrono>
@@ -40,7 +43,7 @@ void DisableHighResTimer() {
 // PPC kernel bypass hooks (Windows only)
 // ---------------------------------------------------------------------------
 
-#if defined(_WIN32)
+#if defined(_WIN32) && !defined(REXGLUE_HAS_XEO3_TARGET)
 
 // Sleep (0x8244FEC0)
 u32 Sleep_hook(u32 ms) {
@@ -78,3 +81,10 @@ u32 ResumeThread_hook(u32 handle) {
 REX_HOOK(mc_ResumeThread, ResumeThread_hook);
 
 #endif // _WIN32
+
+#else // REXGLUE_HAS_XEO3_TARGET
+// XEO3 stubs: empty implementations so the linker resolves codegen calls.
+
+#include <rex/ppc/context.h>
+
+#endif // REXGLUE_HAS_XEO3_TARGET

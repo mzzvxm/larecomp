@@ -1,3 +1,4 @@
+#ifndef REXGLUE_HAS_XEO3_TARGET
 #include <rex/cvar.h>
 #include <rex/ppc.h>
 #include <rex/system/kernel_state.h>
@@ -168,4 +169,61 @@ bool OpenRexGraphicsFromGameOptions_826686D4(PPCRegister& r3) {
 
     // Skip the original Game Options block and fall through to the epilogue.
     return true;
-}
+}#else // REXGLUE_HAS_XEO3_TARGET
+// XEO3 stubs: empty implementations so the linker resolves codegen calls.
+
+#include <rex/ppc/context.h>
+
+void Hook_CacheVinylPaint(PPCRegister& r3, PPCRegister& r4, PPCRegister& r5, PPCRegister& r6) {}
+void Hook_PhotoModeCapture(PPCRegister& r3) {}
+void ExportVinyl() {}
+void DumpVinylShapes() {}
+void RequestVinylShapeCapture() {}
+void TickVinylShapeCapture() {}
+void ApplyDebugOptions() {}
+void InitHooks() {}
+bool SkipIntro() { return false; }
+void MCLA_SkipIntroRenderPassMask(PPCRegister& r4) {}
+bool Patch_AspectRatio_82233EB4(PPCRegister& f0) { return false; }
+bool Patch_AspectRatio_82214BB8(PPCRegister& f10) { return false; }
+bool Patch_AspectRatio_822E5E68(PPCRegister& f12) { return false; }
+bool Patch_AspectRatio_8223E5E0(PPCRegister& f13) { return false; }
+bool Patch_60FPS_Jump() { return false; }
+void Patch_SingleTile(PPCRegister& r7, PPCRegister& r8, PPCRegister& r25, PPCRegister& r28) {}
+bool Patch_EdramLimit(PPCRegister& r11) { return false; }
+bool Patch_DebugCamGate() { return false; }
+void Patch_DebugCam(PPCRegister& r3) {}
+bool Hook_IntroHalfRate() { return false; }
+bool Patch_60FPS_Byte(PPCRegister& r11) { return false; }
+bool Patch_DisableMotionBlur(PPCRegister& r3) { return false; }
+bool Patch_DisableMSAA(PPCRegister& r11) { return false; }
+bool Patch_PhysicsCollision() { return false; }
+bool Patch_DisableRubberBanding() { return false; }
+bool Patch_DisableDoF() { return false; }
+void Patch_DofComposite(PPCRegister& r3) {}
+void Patch_ScaleTrafficLOD(PPCRegister& f0) {}
+void Patch_RideHeightFit(PPCRegister& f30) {}
+bool Patch_WheelFitBypass() { return false; }
+bool Patch_SpeedUnits(PPCRegister& r11) { return false; }
+void TickButtonPrompts() {}
+void Hook_PlatformVarInit(PPCRegister& r27) {}
+bool Patch_PlatformPush(PPCRegister& r5) { return false; }
+void Hook_SwfContextEnter(PPCRegister& r3) {}
+void UpdateCityLODMemory() {}
+void Patch_ScaleCityLOD(PPCRegister& f13) {}
+bool OpenRexGraphicsFromGameOptions_826686D4(PPCRegister& r3) { return false; }
+void Patch_FOVScale(PPCRegister& f1, PPCRegister& r24) {}
+void Patch_DeltaTimePre() {}
+void Patch_DeltaTime(PPCRegister& r24) {}
+void Patch_BypassVehicleDLC(PPCRegister& r30) {}
+void Hook_CaptureDistrict(PPCRegister& r3) {}
+void Hook_LzxDecompressPre(PPCRegister& r1) {}
+void Hook_LzxDecompressPost(PPCRegister& r1, PPCRegister& r3) {}
+void MCLACameraBoomSmoothing(PPCRegister& f1) {}
+void MCLAAmbientDensityTuning(PPCRegister& r31) {}
+bool Patch_DisableImposterShadows(PPCRegister& r11) { return false; }
+void Patch_SteeringSensitivity(PPCRegister& f0) {}
+void MCLAFrameDelta(PPCRegister& r8) {}
+bool MCLAUseRealDelta() { return false; }
+void MCLAFixedStepPath(PPCRegister& r3, PPCRegister& f11) {}
+#endif // REXGLUE_HAS_XEO3_TARGET

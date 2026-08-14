@@ -1,3 +1,4 @@
+#ifndef REXGLUE_HAS_XEO3_TARGET
 #include "graphics_button.h"
 
 #include "logging.h"
@@ -10,7 +11,9 @@
 #include <thread>
 
 #if defined(_WIN32)
+#ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
+#endif
 #include <Windows.h>
 #endif
 
@@ -281,3 +284,4 @@ bool Hook_TryInstallGraphicsButton(PPCRegister& r3, PPCRegister& r4) {
 }
 
 } // namespace mc::ui
+#endif // REXGLUE_HAS_XEO3_TARGET

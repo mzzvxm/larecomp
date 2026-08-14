@@ -1,3 +1,4 @@
+#ifndef REXGLUE_HAS_XEO3_TARGET
 // larecomp - ReXGlue Recompiled Project
 // This is just an spdlog thing
 #include "spdlog_console.h"
@@ -45,3 +46,5 @@ void InitLarecompLogging() {
 void ShutdownLarecompLogging() {
     spdlog::shutdown();
 }
+
+#endif // REXGLUE_HAS_XEO3_TARGET

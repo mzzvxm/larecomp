@@ -1,3 +1,4 @@
+#ifndef REXGLUE_HAS_XEO3_TARGET
 #define _CRT_SECURE_NO_WARNINGS
 #include "larecomp_iso_installer.h"
 
@@ -561,3 +562,5 @@ bool RunRexglueIsoInstallWizardBlocking(rex::ui::WindowedAppContext& app_context
 }
 
 }  // namespace larecomp
+
+#endif // REXGLUE_HAS_XEO3_TARGET

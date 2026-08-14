@@ -1,0 +1,10 @@
+[project]
+sdk_version = "0.8.0.55"
+name = "larecomp"
+
+[entrypoint]
+file_path = "out/build/win-amd64-release/assets/default.xex"
+out_directory_path = "generated_xeo3"
+includes = [
+  "larecomp_config_xeo3.toml",
+]

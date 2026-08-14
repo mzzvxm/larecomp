@@ -1,3 +1,4 @@
+#ifndef REXGLUE_HAS_XEO3_TARGET
 // larecomp - ReXGlue Recompiled Project
 // This is just an spdlog thing
 #include "spdlog_console.h"
@@ -36,3 +37,4 @@ void InitLarecompLogging() {
     spdlog::flush_on(spdlog::level::warn);
     spdlog::flush_every(std::chrono::seconds(1));
 }
+#endif // REXGLUE_HAS_XEO3_TARGET

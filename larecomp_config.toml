@@ -24924,13 +24924,14 @@ out_directory_path = "generated"
 0x82264760 = { name = "RaceGrid_SetPosition", size = 16 }
 0x82264770 = { name = "RaceGrid_GetPosition", size = 16 }
 0x82262320 = { name = "ReplayMgr_GetFinishedRace", size = 28 }
-0x82262340 = { name = "ReplayMgr_GetFinishedWatchingReplay" }
+0x82262340 = { name = "ReplayMgr_GetFinishedWatchingReplay", size = 0x44 }
 # credits to ohretro for found 0x822C9FE8 and some guy to labeled
-0x822C9FE8 = { name = "mcla_RaceDescription_GetStartBeaconPosition", size = 0x64 } # 2nd tuto race calls
-0x8220B810 = { name = "mcla_SimpleListForm_GetItem", size = 0x24 }
+0x822C9FE8 = { name = "RaceDescription_GetStartBeaconPosition", size = 0x64 } # 2nd tuto race calls
+0x8220B810 = { name = "SimpleListForm_GetItem", size = 0x24 }
 # credits to ohretro for found that
-0x8220DA40 = { name = "mcla_Warper_SetDestinationMatrix", size = 0x10 }
-0x8220B7D0 = { name = "mcla_SimpleListForm_SetEnabled", size = 0x40 }
+0x8220DA40 = { name = "Warper_SetDestinationMatrix", size = 0x10 }
+0x8220B7D0 = { name = "SimpleListForm_SetEnabled", size = 0x40 }
+0x822B88B8 = { name = "OpponentManager_LoadOpponentByCarConfig", size = 0x10 }
 
 [[midasm_hook]]
 address = 0x821F7F64

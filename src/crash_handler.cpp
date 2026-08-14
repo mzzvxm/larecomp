@@ -16,16 +16,121 @@
 #include <dbghelp.h>
 #include <spdlog/spdlog.h>
 
+#include <cstdio>
+#include <cstring>
+#include <mutex>
+
+#pragma comment(lib, "dbghelp.lib")
+
+namespace {
+
+std::mutex g_sym_mtx;  // dbghelp is single-threaded; serialize handler entry
+
+// Resolve one host address to "module+off  symbol+off (file:line)" and log it.
+// Recompiled guest functions appear in the PDB as rex_sub_82XXXXXX, so a symbol
+// like that is a direct pointer to a GUEST address to open in the IDB.
+void LogAddr(const char* label, DWORD64 a) {
+    HANDLE proc = GetCurrentProcess();
+
+    char modname[64] = "?";
+    DWORD64 modbase = 0;
+    HMODULE mod = nullptr;
+    if (GetModuleHandleExA(
+            GET_MODULE_HANDLE_EX_FLAG_FROM_ADDRESS | GET_MODULE_HANDLE_EX_FLAG_UNCHANGED_REFCOUNT,
+            reinterpret_cast<LPCSTR>(a), &mod) &&
+        mod) {
+        modbase = reinterpret_cast<DWORD64>(mod);
+        char full[MAX_PATH];
+        if (GetModuleFileNameA(mod, full, MAX_PATH)) {
+            const char* b = std::strrchr(full, '\\');
+            std::snprintf(modname, sizeof(modname), "%s", b ? b + 1 : full);
+        }
+    }
+
+    char symbuf[sizeof(SYMBOL_INFO) + 512] = {};
+    auto* si = reinterpret_cast<SYMBOL_INFO*>(symbuf);
+    si->SizeOfStruct = sizeof(SYMBOL_INFO);
+    si->MaxNameLen = 512;
+    DWORD64 sdisp = 0;
+    const char* sym = nullptr;
+    if (SymFromAddr(proc, a, &sdisp, si)) sym = si->Name;
+
+    IMAGEHLP_LINE64 line{};
+    line.SizeOfStruct = sizeof(line);
+    DWORD ldisp = 0;
+    bool haveline = SymGetLineFromAddr64(proc, a, &ldisp, &line) != FALSE;
+
+    if (sym && haveline) {
+        LARECOMP_CRASH_ERROR("  {} 0x{:016X}  {}+0x{:X}  {}+0x{:X}  ({}:{})", label, a, modname,
+                             a - modbase, sym, sdisp, line.FileName, line.LineNumber);
+    } else if (sym) {
+        LARECOMP_CRASH_ERROR("  {} 0x{:016X}  {}+0x{:X}  {}+0x{:X}", label, a, modname, a - modbase,
+                             sym, sdisp);
+    } else {
+        LARECOMP_CRASH_ERROR("  {} 0x{:016X}  {}+0x{:X}  <no symbol>", label, a, modname,
+                             a - modbase);
+    }
+}
+
+}  // namespace
+
 static LONG WINAPI CrashHandler(EXCEPTION_POINTERS* ep) {
     if (!ep || !ep->ExceptionRecord || !ep->ContextRecord) {
         return EXCEPTION_CONTINUE_SEARCH;
     }
+    std::lock_guard<std::mutex> lock(g_sym_mtx);
 
+    const auto* er = ep->ExceptionRecord;
     LARECOMP_CRASH_ERROR("!!! CRASH DETECTED !!!");
     LARECOMP_CRASH_ERROR("Codigo: 0x{:08X} no endereco 0x{:016X}",
-                         static_cast<unsigned>(ep->ExceptionRecord->ExceptionCode),
-                         reinterpret_cast<std::uintptr_t>(
-                             ep->ExceptionRecord->ExceptionAddress));
+                         static_cast<unsigned>(er->ExceptionCode),
+                         reinterpret_cast<std::uintptr_t>(er->ExceptionAddress));
+
+    // Access violations carry the operation (read/write/exec) and target address.
+    if (er->ExceptionCode == EXCEPTION_ACCESS_VIOLATION && er->NumberParameters >= 2) {
+        const char* op = er->ExceptionInformation[0] == 0   ? "LEITURA"
+                         : er->ExceptionInformation[0] == 1 ? "ESCRITA"
+                         : er->ExceptionInformation[0] == 8 ? "EXEC(DEP)"
+                                                            : "?";
+        LARECOMP_CRASH_ERROR("Access violation: {} em 0x{:016X}", op,
+                             static_cast<std::uintptr_t>(er->ExceptionInformation[1]));
+    }
+
+    // Faulting instruction pointer, resolved.
+    LARECOMP_CRASH_ERROR("Faulting instruction:");
+    LogAddr("PC", reinterpret_cast<DWORD64>(er->ExceptionAddress));
+
+    // Walk the call stack from the crash context (not the handler's own stack).
+    LARECOMP_CRASH_ERROR("Stack trace:");
+    CONTEXT ctx = *ep->ContextRecord;
+    STACKFRAME64 sf{};
+#if defined(_M_X64) || defined(__x86_64__)
+    sf.AddrPC.Offset = ctx.Rip;
+    sf.AddrFrame.Offset = ctx.Rbp;
+    sf.AddrStack.Offset = ctx.Rsp;
+    const DWORD machine = IMAGE_FILE_MACHINE_AMD64;
+#else
+    sf.AddrPC.Offset = ctx.Eip;
+    sf.AddrFrame.Offset = ctx.Ebp;
+    sf.AddrStack.Offset = ctx.Esp;
+    const DWORD machine = IMAGE_FILE_MACHINE_I386;
+#endif
+    sf.AddrPC.Mode = AddrModeFlat;
+    sf.AddrFrame.Mode = AddrModeFlat;
+    sf.AddrStack.Mode = AddrModeFlat;
+
+    HANDLE proc = GetCurrentProcess();
+    HANDLE thr = GetCurrentThread();
+    for (int frame = 0; frame < 48; ++frame) {
+        if (!StackWalk64(machine, proc, thr, &sf, &ctx, nullptr, SymFunctionTableAccess64,
+                         SymGetModuleBase64, nullptr)) {
+            break;
+        }
+        if (sf.AddrPC.Offset == 0) break;
+        char lbl[8];
+        std::snprintf(lbl, sizeof(lbl), "#%02d", frame);
+        LogAddr(lbl, sf.AddrPC.Offset);
+    }
 
     spdlog::apply_all([](std::shared_ptr<spdlog::logger> logger) {
         if (logger) logger->flush();
@@ -38,6 +143,10 @@ void InstallCrashLogger() {
     static bool installed = false;
     if (installed) return;
     installed = true;
+
+    SymSetOptions(SYMOPT_UNDNAME | SYMOPT_DEFERRED_LOADS | SYMOPT_LOAD_LINES | SYMOPT_FAIL_CRITICAL_ERRORS);
+    SymInitialize(GetCurrentProcess(), nullptr, TRUE);
+
     SetUnhandledExceptionFilter(&CrashHandler);
 }
 
@@ -57,7 +166,13 @@ std::filesystem::path ExeDir() {
 void InstallCrashLogger() {}
 
 std::filesystem::path ExeDir() {
-    return std::filesystem::current_path();
+    try {
+        return std::filesystem::canonical("/proc/self/exe").parent_path();
+    } catch (...) {
+        return std::filesystem::current_path();
+    }
 }
 
 #endif
+
+#endif // REXGLUE_HAS_XEO3_TARGET

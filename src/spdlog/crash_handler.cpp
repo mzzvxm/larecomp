@@ -57,7 +57,13 @@ std::filesystem::path ExeDir() {
 void InstallCrashLogger() {}
 
 std::filesystem::path ExeDir() {
-    return std::filesystem::current_path();
+    try {
+        return std::filesystem::canonical("/proc/self/exe").parent_path();
+    } catch (...) {
+        return std::filesystem::current_path();
+    }
 }
 
 #endif
+
+#endif // REXGLUE_HAS_XEO3_TARGET
